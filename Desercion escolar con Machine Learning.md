@@ -125,11 +125,11 @@ Ahora que sabemos qué datos queremos utilizar, debemos prepararlos para ir haci
 3. A la derecha, busca el menú que dice *Output Format*
 4. Elegí *Comma Delimited* y click en OK
 
-![CSV](/images/1-sql-options.png)
+![CSV](https://github.com/marcelofelman/case-studies/blob/master/images/1-sql-options.PNG?raw=true)
 
 Luego, haciendo click en el siguiente botón, podrás correr tus consultas y guardar los resultadso en un archivo.
 
-![Guardar resultado como archivo](/images/2-sql-results.png)
+![Guardar resultado como archivo](https://github.com/marcelofelman/case-studies/blob/master/images/2-sql-results.PNG?raw=true)
 
 Ahora podrás guardar tus consultas como CSV.
 
