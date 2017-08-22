@@ -1,6 +1,6 @@
 # Predecir deserción escolar con Machine Learning #
 
-En este post, me gustaría contarte cómo hicimos para detectar jóvenes en riesgo de abandonar la secundaria utilizando técnicas de Machine Learning.
+En este caso de estudio, me gustaría contarte cómo hicimos para detectar jóvenes en riesgo de abandonar la secundaria utilizando técnicas de Machine Learning.
 
 ## Resumen ##
 
@@ -351,16 +351,16 @@ Así es como debes conectarlo:
 
 Existen distintas maneras de medir si un modelo es exitoso o no. Estas son algunas de ellas:
 
-- *Accuracy* o exactitud
-- *Precision* o precisión
+- *Accuracy* o exactitud: la proporción de casos predichos correctamente.
+- *Precision* o precisión: la proporción de *positivos* predichos correctamente.
 - Falsos negativos
 - Falsos positivos
 - Verdaderos negativos
 - Verdaderos positivos
-- *Recall*
-- Puntaje F1
+- *Recall*: proporción de verdaderos positivos identificados correctamente.
+- Puntaje F1: combinación entre *recall* y precisión.
 
->>>PROFUDINZAR CADA UNO DE ESTOS**
+>**Tip:** En el módulo de *Tune Model Hyperparameters*, verás que podrás entrenar modelos priorizando cada una de estas métricas. Es importante tener en cuenta aquella que mas importante sea para nuestro caso.
 
 ### Utilizar otros algoritmos ###
 
@@ -386,8 +386,38 @@ Si quieres conocer más sobre detección de anomalías, puede ir a [este artícu
 
 ## Integración ##
 
->>>CONTAR COMO PUBLICAR COMO WEB SERVICE Y COMO USAR..**
+### Creación del Web Service ###
+
+Hemos llegado a la instancia donde estamos conformes sobre nuestro modelo, y queremos que sea consumido. La forma más simple será a través de un *Web Service REST*.
+
+Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE*.
+
+>>>IMAGEN SET UP WS
+
+Esto nos generará una animación y creará una pestaña con el servicio web.
+
+>**Tip:** No te preocupes por hacer modificaciones en esta instancia.
+
+Deberás darle *Run* al servicio, que es como si fuera "compilar" nuestra nueva API.
+
+Finalmente, aparecerá el botón *DEPLOY WEB SERVICE* sobre el cual haremos click. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
+
+>>>SCREENSHOT DEL WS
+
+### Probar el Web Service ###
+
+Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
+
+>>>WEB SERVICE OUTPUT
 
 ## Conclusiones ##
 
+Machine Learning es todo un mundo diferente, y puede resultar complejo para quienes venimos del ámbito de desarrollo de software.
+
+A través de un proceso iterativo de prueba y error, podemos ir acercándonos a una respuesta correcta y finalmente determinar si nuestro modelo es bueno o no.
+
+En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 90% de los jóvenes que están en riesgo de abandonar el colegio. Esta herramienta permite al Gobierno tomar decisiones en tiempo real, y ayudar a aquellos que más lo necesiten.
+
 ## Agradecimientos ##
+
+El mayor agradecimiento al Ministerio de Primera Infancia del Gobierno Provincial de Salta, quienes sin lugar a dudas quieren cambiar este mundo para el bien de todos.
