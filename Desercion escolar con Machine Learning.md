@@ -323,7 +323,7 @@ De esta manera, logramos un conjunto de datos más balanceado. Una manera simple
 
 >**Tip:** En la solapa Propiedades de *SMOTE*, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
 
-![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/20-smote-results.PNG?raw=true)
+![Resultados de SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/20-smote-results.PNG?raw=true)
 
 Como podemos ver, nuestro conjunto de datos ahora está balanceado, probablemente logrando mejores resultados que antes. Más información sobre SMOTE, [aquí](https://msdn.microsoft.com/en-us/library/azure/mt429826.aspx).
 
@@ -335,11 +335,17 @@ El módulo *Tune Model Hyperparameters* hace exactamente esto: barre los paráme
 
 Puedes utilizarlo de la siguiente manera:
 
->>>SCREESHOTS TUNE HYPERMODEL
+![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/21-tune-parameters.PNG?raw=true)
+
+Más información sobre *Tune Model Hyperparameters* [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905810.aspx)
 
 ### Utilizar cross-validation ###
 
->>>BLABLA EXPLICAR CROSS VALIDATION
+Este módulo es extremadamente simple de usar y en esencia nos permite conocer la viabilidad entre el conjunto de datos y el algoritmo que estamos utilizando. Si quieres conocer más, te recomiendo [este](https://msdn.microsoft.com/en-us/library/azure/dn905852.aspx) artículo.
+
+Así es como debes conectarlo:
+
+![Cross-validation](https://github.com/marcelofelman/case-studies/blob/master/images/22-cross-validation.PNG?raw=true)
 
 ### Medir el éxito de otra manera ###
 
@@ -354,16 +360,21 @@ Existen distintas maneras de medir si un modelo es exitoso o no. Estas son algun
 - *Recall*
 - Puntaje F1
 
->>>PROFUDIZAR CADA UNO DE ESTOS**
+>>>PROFUDINZAR CADA UNO DE ESTOS**
 
 ### Utilizar otros algoritmos ###
 
 En determinados casos, distintos algoritmos podrían llegar a mejores resultados. No dejes de probar distintas alternativas. Para ello, simplemente conecta un algoritmo diferente a la entrada de *Train model*. Eso es todo.
 
->>>SCREENSHOT DE OTRO ALGORITMO**
+![Dos algoritmos](https://github.com/marcelofelman/case-studies/blob/master/images/23-two-algorithms.PNG?raw=true)
 
-*Tip #8*
-El módulo *Evaluate model* permite dos entradas. De esta forma, puedes comparar dos algoritmos fácilmente.
+>**Tip:** El módulo *Evaluate model* permite dos entradas. De esta forma, puedes comparar dos algoritmos fácilmente.
+
+![Comparación](https://github.com/marcelofelman/case-studies/blob/master/images/24-comparing-algorithms.PNG?raw=true)
+
+En este caso estoy comparando *Two Class Boosted Decision Tree* versus *Two Class Bayes Point Machine*. Podemos ver que se comportan de una manera muy similar.
+
+>**Tip:** Haciendo click en los nombres y colores de la derecha, podemos ver la performance de cada algoritmo.
 
 ### Encarar el problema de otra manera ###
 
