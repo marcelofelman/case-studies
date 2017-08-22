@@ -226,36 +226,38 @@ Por ejemplo, si un caso nos dio de *Scored label* 'SI' y *Scored probabilities* 
 
 En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos eso como un todo. Para ello, utilizaremos el módulo *Evaluate model* el cual toma como entrada la salida de *Score model*.
 
-Si visualizamos la salida de *Evaluate model*, podremos ver la siguiente gráfica:
+![Evaluar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/13-evaluate-model.PNG?raw=true)
 
->>>GRAFICA DE EVALUATE MODEL**
+Si damos *Run* visualizamos la salida de *Evaluate model*, podremos ver la siguiente gráfica:
+
+![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/14-auc.PNG?raw=true)
 
 Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (*Area under the curve* o también *AUC*) debe ser lo mayor posible: no queremos dejar casos afuera.
 
-A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **XXX %** de las veces está realizando una predicción correcta.
+A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **87,9%** de las veces está realizando una predicción correcta.
 
 No obstante, si nos movemos hacia abajo veremos más métricas que definen el comportamiento de nuestro modelo predictivo.
 
->>>ELABORAR SOBRE LAS METRICAS
+![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/15-more-metrics.PNG?raw=true)
 
 Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
 
->>>COMPLETAR METRICAS
-
-- Estudiantes que dijimos que iban a abandonar, y abandonaron (verdadero positivo):
-- Estudiantes que dijimos que NO iban a abandonar, y abandonaron (falso negativo):
-- Estudiantes que dijimos que iban a abandonar, y NO abandonaron (falso positivo):
-- Estudiantes que dijimos que NO iban a abandonar, y NO abandonaron (verdadero negativo):
+- Estudiantes que dijimos que iban a abandonar, y abandonaron (verdadero positivo): 777
+- Estudiantes que dijimos que NO iban a abandonar, y abandonaron (falso negativo): 913
+- Estudiantes que dijimos que iban a abandonar, y NO abandonaron (falso positivo): 496
+- Estudiantes que dijimos que NO iban a abandonar, y NO abandonaron (verdadero negativo): 9474
 
 Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es mucho peor NO ayudar a un estudiante en riesgo de abandonar, que ayudar por demás a alguno que en realidad no iba abandonar. El costo de los falsos positivos supera el de los falsos negativos.
+
+Como podemos ver arriba, estamos identificando a 777 jóvenes, pero "dejando pasar" a unos 913. Debemos mejorar nuestro modelo.
 
 ## Iteraciones de mejora ##
  
 Descubrimos que nuestro modelo no es tan preciso, o que tal vez puede mejorar. ¿Cómo podemos mejorarlo? A continuación, algunas ideas:
 
-- Utilizar menos variables
-- Utilizar más variables
-- Utilizar *otras* variables
+- Utilizar menos campos
+- Utilizar más campos
+- Utilizar *otros* campos
 - Balancear el conjunto de datos
 - Modificar los parámetros del algoritmo
 - Utilizar *cross-validation*
@@ -271,8 +273,7 @@ A veces menos es más, especialmente cuando pueda existir correlación entre dos
 
 Un ejemplo en nuestro caso, podría ser utilizar tanto la variable *edad* como la variable *año de nacimiento*. Claramente, habrá una correlación lineal y perfecta entre estas dos variables. El modelo se verá desbalanceado, favoreciendo la edad (o fecha de nacimiento) como un campo más poderoso.
 
-*Tip #7*
-Azure Machine Learning hace sencilla la búsqueda de correlación entre variables. Lo veremos más adelante.
+>**Tip:** Azure Machine Learning hace sencilla la búsqueda de correlación entre variables. Lo veremos más adelante.
 
 ### Utilizar más variables ###
 
@@ -291,9 +292,19 @@ Debes evaluar en cada caso si pueden existir más campos que tengan sentido agre
 
 Tal vez pueda sorprendernos que aquel campo del cual creíamos que nos servía, en realidad no lo hacía. Una manera simple de saber si estamos utilizando las variables correctas, es buscando correlación.
 
-Esto puede hacerse a través del módulo *Feature Selection*
+Esto puede hacerse a través del módulo *Feature Selection*. Es importante saber que antes de usar este módulo, debes editar metadata para indicar sobre qué columna quieres encontrar correlación. Más información [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905912.aspx).
 
->>>COMPLETAR CON SCREENSHOTS DE CORRELACION
+![Selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/16-feature-selection.PNG?raw=true)
+
+No olvides en la solapa derecha, elegir algún método de detección de correlación junto con el selector de columnas. En mi caso, será AbandonoEstudios. Recuerda que también puedes chequear la existencia de correlación entre otras columnas.
+
+![Propiedades de selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/17-feature-selection-properties.PNG?raw=true)
+
+Si visualizas la salida derecha del módulo *Feature Selection*, podrás ver lo siguiente:
+
+![Resultados de selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/18-feature-selection-results.PNG?raw=true)
+
+Las columnas estarán ordenadas de mayor a menor en cuanto al nivel de correlación. En este caso, por ejemplo, la variable que mayor relación guarda con AbandonoEstudios es Edad. Esto no me sorprende, ya que coincido con que sea más probable que un jóven deje la secundaria a mayor edad. Es más probable que abandones a los 17 que a los 13.
 
 ### Balancear el conjunto de datos ###
 
@@ -306,11 +317,15 @@ Esta situación puede generar un balanceo que favorezca el escenario mayoritario
 - *Undersampling*: tomar menos casos del escenario mayoritario a fin de reducir las ocurrencias.
 - *Oversampling*: aumentar o simular más ocurrencias del caso minoritario.
 
-De esta manera, logramos un conjunto de datos más balanceado. Una manera simple y casi automática de lograr esto, es utilizando el módulo *SMOTE*.
+De esta manera, logramos un conjunto de datos más balanceado. Una manera simple y casi automática de lograr esto, es utilizando el módulo *SMOTE*, que significa *Synthetic Minority Oversampling* o bien sobre-muestreo sintético de minorías. No olvides aquí también editar metadata.
 
->>>SCREENSHOTS SOBRE SMOTE
+![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/19-smote.PNG?raw=true)
 
->>>screenshots sobre MODULO OUTPUT SMOTE
+>**Tip:** En la solapa Propiedades de *SMOTE*, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
+
+![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/19-smote-results.PNG?raw=true)
+
+Como podemos ver, nuestro conjunto de datos ahora está balanceado, probablemente logrando mejores resultados que antes. Más información sobre SMOTE, [aquí](https://msdn.microsoft.com/en-us/library/azure/mt429826.aspx).
 
 ### Modificar los parámetros del algoritmo ###
 
