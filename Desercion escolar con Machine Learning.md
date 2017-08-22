@@ -91,15 +91,14 @@ ORDER BY Porcentaje DESC
 Aquí, obtuvimos resultados similares a los siguientes:
 
 | Barrio        | Desertor           | TotalBarrio  | Porcentaje |
-| ------------- |:-------------:| -----:| ------:|
+| ------------- |:-------------:| :-----:| :------:|
 | Algún barrio      | 102 | 184 | 55,4347|
 | Otro barrio      | 108      |   225 |48|
 | Zona diferente | 289      |    874 |33,0663|
 
 Como puedes ver, distintas zonas tienen distintas tasas de deserción. Esto pueda llevarnos a pensar que la zona donde un chico resida, tenga que ver con su probabilidad de abandonar la secundaria. Por ahora, es sólo una hipótesis que luego probaremos.
 
-*Tip #3*
-Seguro encuentres mejores maneras de escribir estas consultas. No te preocupes, la performance aquí no es importante. 
+>**Tip:**Seguro encuentres mejores maneras de escribir estas consultas. No te preocupes, la performance aquí no es importante. 
 
 ### Iteración ###
 
@@ -121,12 +120,22 @@ Luego iteraremos para entender si estas variables nos sirven o no.
 
 Ahora que sabemos qué datos queremos utilizar, debemos prepararlos para ir hacia Azure Machine Learning. Estando en SQL Server, una manera simple de hacerlo es guardando los resultados de nuestra consulta como CSV. Para ello, debemos seguir estos pasos:
 
->>>SCREENSHOTS DE SQL SERVER
+1. Abrir SQL Server Management Studio
+2. Ir a *Tools > Options > Query Results > SQL Server > Results to text
+3. A la derecha, busca el menú que dice *Output Format*
+4. Elegí *Comma Delimited* y click en OK
+
+![CSV](/images/1-sql-options.png)
+
+Luego, haciendo click en el siguiente botón, podrás correr tus consultas y guardar los resultadso en un archivo.
+
+![Guardar resultado como archivo](/images/2-sql-results.png)
+
+Ahora podrás guardar tus consultas como CSV.
 
 Esto nos generará un archivo de tipo .rpt, al cual simplemente cambiar su extensión a .csv y abrirlo como tal.
 
-*Tip #4*
-Los archivos CSV pueden abrirse con Excel. Si te hace sentir más cómodo, chequealo antes de seguir con el próximo paso.
+>**Tip:**Los archivos CSV pueden abrirse con Excel. Si te hace sentir más cómodo, chequealo antes de seguir con el próximo paso.
 
 Ahora, procedemos a ingresar al [Azure Machine Learning Studio](https://studio.azureml.net). Si no tienes una cuenta, puedes crearla de forma gratuita allí mismo.
 
