@@ -323,7 +323,7 @@ De esta manera, logramos un conjunto de datos más balanceado. Una manera simple
 
 >**Tip:** En la solapa Propiedades de *SMOTE*, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
 
-![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/19-smote-results.PNG?raw=true)
+![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/20-smote-results.PNG?raw=true)
 
 Como podemos ver, nuestro conjunto de datos ahora está balanceado, probablemente logrando mejores resultados que antes. Más información sobre SMOTE, [aquí](https://msdn.microsoft.com/en-us/library/azure/mt429826.aspx).
 
