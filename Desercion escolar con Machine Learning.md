@@ -98,7 +98,7 @@ Aquí, obtuvimos resultados similares a los siguientes:
 
 Como puedes ver, distintas zonas tienen distintas tasas de deserción. Esto pueda llevarnos a pensar que la zona donde un chico resida, tenga que ver con su probabilidad de abandonar la secundaria. Por ahora, es sólo una hipótesis que luego probaremos.
 
->**Tip:**Seguro encuentres mejores maneras de escribir estas consultas. No te preocupes, la performance aquí no es importante. 
+>**Tip:** Seguro encuentres mejores maneras de escribir estas consultas. No te preocupes, la performance aquí no es importante. 
 
 ### Iteración ###
 
@@ -135,7 +135,7 @@ Ahora podrás guardar tus consultas como CSV.
 
 Esto nos generará un archivo de tipo .rpt, al cual simplemente cambiar su extensión a .csv y abrirlo como tal.
 
->**Tip:**Los archivos CSV pueden abrirse con Excel. Si te hace sentir más cómodo, chequealo antes de seguir con el próximo paso.
+>**Tip:** Los archivos CSV pueden abrirse con Excel. Si te hace sentir más cómodo, chequealo antes de seguir con el próximo paso.
 
 Ahora, procedemos a ingresar al [Azure Machine Learning Studio](https://studio.azureml.net). Si no tienes una cuenta, puedes crearla de forma gratuita allí mismo.
 
@@ -149,7 +149,7 @@ Subimos nuestro conjunto de datos, y al cabo de unos segundos estará en Azure.
 
 Ahora puedes crear un nuevo experimento haciendo click en *+NEW > Blank Experiment*
 
->**Tip:**Puedes ponerle el nombre que quieras haciendo click en el nombre por defecto.
+>**Tip:** Puedes ponerle el nombre que quieras haciendo click en el nombre por defecto.
 
 Ya subido el dataset, el mismo aparecerá en la solapa *My datasets* y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
 
@@ -161,7 +161,7 @@ Si quieres visualizarlo, puedes hacer click en la salida del módulo y otro clic
 
 Deberías ver una pantalla similar a esta, pero con tus propios datos. Si haces click en cada una de las columnas, podrás ver la distribución junto con un histograma a la derecha.
 
-![Visualizar los datos](https://github.com/marcelofelman/case-studies/blob/master/images/6-visualize-dataset.PNG?raw=true)
+![Visualizar los datos](https://github.com/marcelofelman/case-studies/blob/master/images/7-visualize-chart.PNG?raw=true)
 
 ## Creación de modelos ##
 
