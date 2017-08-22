@@ -169,8 +169,7 @@ Ahora empezaremos a crear nuestros modelos predictivos. Como mencionamos anterio
 
 Para resolver este problema, existen diferentes algoritmos. Recuerda que los diferentes algoritmos son simplemente distintas formas de abordar a un resultado. Algunos llegan a mejores resultados, pero esto no está garantizado. Si quieres ver el listado y ventajas de cada uno de los algoritmos, lo puedes ver [aquí](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Yo empezaré utilizando un *Two-class Boosted Decision Tree*, el cual es balanceado en cuanto a consumo de recursos y exactitud en sus resultados.
 
-*Tip #5*
-Todavía no te preocupes tanto por el algoritmo que utilizarás. Tendrás tiempo de probar otros más adelante.
+>**Tip:** Todavía no te preocupes tanto por el algoritmo que utilizarás. Tendrás tiempo de probar otros más adelante.
 
 ### Entrenamiento supervisado ###
 
@@ -180,12 +179,15 @@ Los datos de entrenamiento serán utilizados para crear nuestro modelo y ajustar
 
 Para realizar esto, utilizaremos el módulo *Split Data*
 
->>>Screenshot SPLIT DATA
+![Split data](https://github.com/marcelofelman/case-studies/blob/master/images/8-split-data.PNG?raw=true)
+
+>**Tip:** Puedes agregar comentarios a los componentes, haciendo doble click en la caja.
 
 Puedes ajustar qué cantidad de datos irán para cada salida, en la solapa de la derecha.
 
-*Tip #6*
-Utiliza más datos de entrenamiento que datos de prueba. Según la [distribución de Pareto](https://es.wikipedia.org/wiki/Distribución_de_Pareto), 80 para entrenamiento y 20 para pruebas es adecuado.
+>**Tip:** Utiliza más datos de entrenamiento que datos de prueba. Según la [distribución de Pareto](https://es.wikipedia.org/wiki/Distribución_de_Pareto), 80 para entrenamiento y 20 para pruebas es adecuado.
+
+Si no quieres utilizar todas las columnas en tu dataset y deseas filtrar algunas, puede usar el componente *Select Columns in Dataset*. [Aquí](https://msdn.microsoft.com/en-us/library/azure/dn905883.aspx) explican cómo usarlo.
 
 ### Crear el modelo ###
 
@@ -193,20 +195,32 @@ Para crear el modelo, debes simplemente conectar la salida izquierda de *Split D
 
 La entrada izquierda de *Train model* debe conectarse con un algoritmo, en este caso utilizaré *Two-class Boosted Decision Tree*.
 
->>>SCREENSHOT MODELITO BASICO
+![Entrenar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/9-train-model.PNG?raw=true)
 
-En otros términos, estamos utilizando un algoritmo y datos de entrenamiento, para entrenar un modelo.
+Seguro notes una cruz roja en el módulo *Train model*. Esto se debe a que debemos enseñarle al software cuál es el campo que buscamos predecir. En mi caso, quiero predecir el campo binario *AbandonoEstudios*.
+
+Usa el selector de columna a la derecha para elegir el campo.
+
+![Seleccionar columna](https://github.com/marcelofelman/case-studies/blob/master/images/10-column-selector.PNG?raw=true)
+
+En otros términos, estamos utilizando un algoritmo y datos de entrenamiento, para entrenar un modelo. Estamos casi listos.
+
+>**Tip:** En cualquier paso de la experimentación, puedes darle *Run* y visualizar la salida de cada componente con click derecho > Visualize. En esta instancia, puedes visualizar las salidas izquierda y derecha de *Split Data* como también podrías ver la salida del modelo entrenado.
 
 ### Realizar las predicciones ###
 
-Estamos en condiciones de probar nuestro modelo. Para ello, debemos utilizar el componente *Score model*. Este componente genera las predicciones y agrega dos nuevas columnas:
+Estamos en condiciones de probar nuestro modelo. Para ello, debemos utilizar el componente *Score model*. Aquí es donde entran en juego los datos de prueba, los cuales (salida derecha de *Split data*) conectaremos a la entrada derecha de *Score model*.
+
+![Score model](https://github.com/marcelofelman/case-studies/blob/master/images/11-score-model.PNG?raw=true)
+
+Puedes darle *Run* y luego visualizar el resultado (su salida). Este componente genera las predicciones y agrega dos nuevas columnas:
 
 - *Scored label*: indica la categoría que predice nuestro modelo. En este caso será 'SI' o 'NO'.
 - *Scored probabilities*: indica la probabilidad que tenía de tomar la etiqueta positiva.
 
 Por ejemplo, si un caso nos dio de *Scored label* 'SI' y *Scored probabilities* 0,70 entonces el modelo dice que con un 70% de confianza, ese jóven abandonará la secundaria.
 
->>>SCREENSHOT DE SCORE MODEL
+![Valores categorizados](https://github.com/marcelofelman/case-studies/blob/master/images/12-scored-model.PNG?raw=true)
 
 ### Evaluar el comportamiento del modelo ###
 
