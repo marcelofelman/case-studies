@@ -121,7 +121,7 @@ Luego iteraremos para entender si estas variables nos sirven o no.
 Ahora que sabemos qué datos queremos utilizar, debemos prepararlos para ir hacia Azure Machine Learning. Estando en SQL Server, una manera simple de hacerlo es guardando los resultados de nuestra consulta como CSV. Para ello, debemos seguir estos pasos:
 
 1. Abrir SQL Server Management Studio
-2. Ir a *Tools > Options > Query Results > SQL Server > Results to text
+2. Ir a *Tools > Options > Query Results > SQL Server > Results to text*
 3. A la derecha, busca el menú que dice *Output Format*
 4. Elegí *Comma Delimited* y click en OK
 
@@ -139,17 +139,29 @@ Esto nos generará un archivo de tipo .rpt, al cual simplemente cambiar su exten
 
 Ahora, procedemos a ingresar al [Azure Machine Learning Studio](https://studio.azureml.net). Si no tienes una cuenta, puedes crearla de forma gratuita allí mismo.
 
+![Azure Machine Learning Studio](https://github.com/marcelofelman/case-studies/blob/master/images/3-ml-studio.PNG?raw=true)
+
 Al ingresar, hacemos click en *New* y luego en *Dataset*
 
->>>SCREENSHOT AZURE ML
+![Subir el conjunto de datos](https://github.com/marcelofelman/case-studies/blob/master/images/4-upload-dataset.PNG?raw=true)
 
-Subimos nuestro conjunto de datos, y al cabo de unos segundos estará en Azure. El mismo aparecerá en la solapa *My datasets* y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
+Subimos nuestro conjunto de datos, y al cabo de unos segundos estará en Azure.
 
->>>SCREENSHOT DATASET
+Ahora puedes crear un nuevo experimento haciendo click en *+NEW > Blank Experiment*
+
+>**Tip:**Puedes ponerle el nombre que quieras haciendo click en el nombre por defecto.
+
+Ya subido el dataset, el mismo aparecerá en la solapa *My datasets* y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
+
+![Nuevo experimento](https://github.com/marcelofelman/case-studies/blob/master/images/5-new-experiment.PNG?raw=true)
 
 Si quieres visualizarlo, puedes hacer click en la salida del módulo y otro click en *visualize*.
 
->>>SCREENSHOT VISUALIZE
+![Visualizar conjunto de datos](https://github.com/marcelofelman/case-studies/blob/master/images/6-visualize-dataset.PNG?raw=true)
+
+Deberías ver una pantalla similar a esta, pero con tus propios datos. Si haces click en cada una de las columnas, podrás ver la distribución junto con un histograma a la derecha.
+
+![Visualizar los datos](https://github.com/marcelofelman/case-studies/blob/master/images/6-visualize-dataset.PNG?raw=true)
 
 ## Creación de modelos ##
 
