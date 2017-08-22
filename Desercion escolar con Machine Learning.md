@@ -41,8 +41,7 @@ Para este proyecto, contamos con una tabla principal la cual contiene informaci�
 
 Una práctica que encuentro conveniente es unir todos los datos en una única tabla o proyección a través de la cláusula *JOIN*. De esta forma, podrás portarlo de manera más simple a Azure Machine Learning.
 
-*Tip #1*
-Unir todos los datos en una única tabla o proyección.
+>*Tip*: Unir todos los datos en una única tabla o proyección.
 
 ### Ejemplo #1 ###
 
@@ -67,8 +66,7 @@ Para ir familiarizándote con el conjunto de datos, es bueno que ejecutes alguna
 - Cantidad de personas que terminan la secundaria vs los que no
 - Tasa de deserción por zona en donde viven
 
-*Tip #2*
-Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
+>*Tip* Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
 
 ### Ejemplo #2 ###
 
