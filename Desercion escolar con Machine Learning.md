@@ -41,7 +41,7 @@ Para este proyecto, contamos con una tabla principal la cual contiene informaci�
 
 Una práctica que encuentro conveniente es unir todos los datos en una única tabla o proyección a través de la cláusula *JOIN*. De esta forma, podrás portarlo de manera más simple a Azure Machine Learning.
 
->*Tip*: Unir todos los datos en una única tabla o proyección.
+>**Tip:** Unir todos los datos en una única tabla o proyección.
 
 ### Ejemplo #1 ###
 
@@ -66,7 +66,7 @@ Para ir familiarizándote con el conjunto de datos, es bueno que ejecutes alguna
 - Cantidad de personas que terminan la secundaria vs los que no
 - Tasa de deserción por zona en donde viven
 
->*Tip* Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
+>**Tip:** Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
 
 ### Ejemplo #2 ###
 
@@ -90,7 +90,11 @@ ORDER BY Porcentaje DESC
 
 Aquí, obtuvimos resultados similares a los siguientes:
 
->>>TODO: INSERTAR TABLA Y "BLUREAR" LOS RESULTADOS
+| Barrio        | Desertor           | TotalBarrio  | Porcentaje |
+| ------------- |:-------------:| -----:| ------:|
+| Algún barrio      | 102 | 184 | 55,4347|
+| Otro barrio      | 108      |   225 |48|
+| Zona diferente | 289      |    874 |33,0663|
 
 Como puedes ver, distintas zonas tienen distintas tasas de deserción. Esto pueda llevarnos a pensar que la zona donde un chico resida, tenga que ver con su probabilidad de abandonar la secundaria. Por ahora, es sólo una hipótesis que luego probaremos.
 
