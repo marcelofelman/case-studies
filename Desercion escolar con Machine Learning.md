@@ -390,25 +390,44 @@ Si quieres conocer más sobre detección de anomalías, puede ir a [este artícu
 
 Hemos llegado a la instancia donde estamos conformes sobre nuestro modelo, y queremos que sea consumido. La forma más simple será a través de un *Web Service REST*.
 
-Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE*.
+Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE* y luego en *Predictive Web Service [Recommended]*
 
->>>IMAGEN SET UP WS
+![Preparar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/25-predictive-service.PNG?raw=true)
+
+>**Tip:** Notarás que también hay servicios web de re-entrenamiento. Si quieres explóralos, pero lo dejaremos para otro caso de estudio.
 
 Esto nos generará una animación y creará una pestaña con el servicio web.
 
 >**Tip:** No te preocupes por hacer modificaciones en esta instancia.
 
-Deberás darle *Run* al servicio, que es como si fuera "compilar" nuestra nueva API.
+Deberás darle *Run* al servicio nuevamente, que es como si fuera "compilar" nuestra nueva API.
 
 Finalmente, aparecerá el botón *DEPLOY WEB SERVICE* sobre el cual haremos click. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
 
->>>SCREENSHOT DEL WS
+![Desplegar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/26-deploy-service.PNG?raw=true)
+
+>**Tip:** Por ahora te recomiendo seguir utilizando la vista clásica.
 
 ### Probar el Web Service ###
 
+Una vez desplegado, verás la siguiente pantalla.
+
+![API del servicio](https://github.com/marcelofelman/case-studies/blob/master/images/27-published-service.PNG?raw=true)
+
+Notarás que tienes dos formas de utilizarlo:
+
+- *Request/Response*: puedes generar la predicción para un único caso.
+- *Batch execution*: puedes realizar muchas predicciones con un mismo pedido a la API.
+
+>**Tip:** Te recomiendo arrancar por *request/response* si es tu primera vez.
+
 Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
 
->>>WEB SERVICE OUTPUT
+![Probar el web service](https://github.com/marcelofelman/case-studies/blob/master/images/27-published-service.PNG?raw=true)
+
+>**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar atos.
+
+De esta manera, tu servicio web predictivo ya es visible para el mundo exterior. ¡Felicitaciones!
 
 ## Conclusiones ##
 
