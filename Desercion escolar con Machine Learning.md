@@ -4,9 +4,9 @@ En este caso de estudio, me gustaría contarte cómo hicimos para detectar jóve
 
 ## Resumen ##
 
-En colaboración con el Ministerio de Primera Infancia del Gobierno Provincial de Salta, definimos como objetivo utilizar inteligencia artificial para identificar aquellos jóvenes con mayor riesgo de abandonar sus estudios secundarios, de manera tal de poder darles mayor apoyo.
+En colaboración con el Ministerio de Primera Infancia del [Gobierno Provincial de Salta](http://www.salta.gov.ar), definimos como objetivo utilizar inteligencia artificial para identificar aquellos jóvenes con mayor riesgo de abandonar sus estudios secundarios, de manera tal de poder darles mayor apoyo.
 
-Afortunadamente, tuvimos acceso a un amplio espectro de datos. Utilizamos un *dataset* de más de 200.000 residentes de la ciudad de Salta, Argentina. **Estos datos no contienen información personal identificable sobre las personas**.
+Afortunadamente, tuvimos acceso a un amplio espectro de datos. Utilizamos un *dataset* de más de 200.000 residentes de la ciudad de Salta, Argentina. **Estos datos no contienen información personal identificable sobre las personas, tal como reconoce [habeas data](https://es.wikipedia.org/wiki/Habeas_data)**.
 
 A través de las herramientas [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/
 ) y [SQL Server 2016](https://www.microsoft.com/en-us/sql-server/sql-server-2016
@@ -14,9 +14,11 @@ A través de las herramientas [Azure Machine Learning](https://azure.microsoft.c
 
 ## Contexto ##
 
-La ciudad de Salta es una de las ciudades más pobladas de Argentina y capital de la provincia con igual nombre.
+[Salta](https://es.wikipedia.org/wiki/Salta_(ciudad)) es una de las ciudades más pobladas de Argentina y capital de la provincia con igual nombre.
 
-Con una población que supera los 500.000 habitantes, el Ministerio de Primera Infancia tiene por misión erradicar la pobreza en la provincia. Con este objetivo en mente, la educación constituye un pilar fundamental para el desarrollo. El Ministerio de Primera Infancia propone mejorar los niveles educativos identificando con Inteligencia Artificial aquellos jóvenes en riesgo de abandonar sus estudios.
+Con una población que supera los 500.000 habitantes, su Ministerio de Primera Infancia tiene por misión erradicar la pobreza en la provincia. Con este objetivo en mente, la educación constituye un pilar fundamental para el desarrollo. El Ministerio de Primera Infancia propone mejorar los niveles educativos identificando con Inteligencia Artificial aquellos jóvenes en riesgo de abandonar sus estudios.
+
+La duración del proyecto fueron dos semanas, en las cuales iniciamos desde la exploración del dominio hasta la publicación de un servicio web predictivo.
 
 ## Software y herramientas ##
 
@@ -25,7 +27,7 @@ Con una población que supera los 500.000 habitantes, el Ministerio de Primera I
 
 ## Fases del proyecto ##
 
-- Exploración del dominio
+- [Exploración del dominio](#Exploración-del-dominio)
 - Preparación de los datos
 - Creación de modelos
 - Iteraciones de mejora
