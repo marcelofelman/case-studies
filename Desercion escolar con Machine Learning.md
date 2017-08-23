@@ -2,6 +2,8 @@
 
 En este caso de estudio, me gustaría contarte cómo hicimos para detectar jóvenes en riesgo de abandonar la secundaria utilizando técnicas de Machine Learning.
 
+Puedes usar este caso como una guía para crear tu propio modelo, o simplemente leerlo para conocer la lógica y secuencia de pasos que seguimos para llegar a nuestro resultado.
+
 ## Resumen ##
 
 En colaboración con el Ministerio de Primera Infancia del [Gobierno Provincial de Salta](http://www.salta.gov.ar), definimos como objetivo utilizar inteligencia artificial para identificar aquellos jóvenes con mayor riesgo de abandonar sus estudios secundarios, de manera tal de poder darles mayor apoyo.
@@ -27,11 +29,11 @@ La duración del proyecto fueron dos semanas, en las cuales iniciamos desde la e
 
 ## Fases del proyecto ##
 
-- [Exploración del dominio](#Exploración-del-dominio)
-- Preparación de los datos
-- Creación de modelos
-- Iteraciones de mejora
-- Integración
+- [Exploración del dominio](#exploración-del-dominio)
+- [Preparación de los datos](#preparación-de-los-datos)
+- [Creación de modelos](#creación-de-modelos)
+- [Iteraciones de mejora](#iteraciones-de-mejora)
+- [Integración](#integración)
 
 ## Exploración del dominio ##
 
@@ -43,7 +45,7 @@ Para este proyecto, contamos con una tabla principal la cual contiene informaci�
 
 Una práctica que encuentro conveniente es unir todos los datos en una única tabla o proyección a través de la cláusula *JOIN*. De esta forma, podrás portarlo de manera más simple a Azure Machine Learning.
 
->**Tip:** Unir todos los datos en una única tabla o proyección.
+>**Tip:** Unir todos los datos en una única tabla o proyección en lugar de lidiar con muchos conjuntos de datos.
 
 ### Ejemplo #1 ###
 
@@ -64,8 +66,8 @@ Para ir familiarizándote con el conjunto de datos, es bueno que ejecutes alguna
 
 - Cantidad total de personas
 - Cantidad de jóvenes (menores de 21 años)
-- Cantidad de jóvenes que terminan la secundaria vs los que no
-- Cantidad de personas que terminan la secundaria vs los que no
+- Cantidad de jóvenes que terminan la secundaria versus los que no
+- Cantidad de personas que terminan la secundaria versus los que no
 - Tasa de deserción por zona en donde viven
 
 >**Tip:** Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
@@ -257,15 +259,15 @@ Como podemos ver arriba, estamos identificando a 777 jóvenes, pero "dejando pas
  
 Descubrimos que nuestro modelo no es tan preciso, o que tal vez puede mejorar. ¿Cómo podemos mejorarlo? A continuación, algunas ideas:
 
-- Utilizar menos campos
-- Utilizar más campos
-- Utilizar *otros* campos
-- Balancear el conjunto de datos
-- Modificar los parámetros del algoritmo
-- Utilizar *cross-validation*
-- Medir el éxito de otra manera
-- Utilizar otros algoritmos
-- Encarar el problema de otra manera
+- [Utilizar menos variables](#utilizar-menos-variables)
+- [Utilizar más variables](#utilizar-más-variables)
+- [Utilizar *otras* variables](#utilizar-otras-variables)
+- [Balancear el conjunto de datos](#balancear-el-conjunto-de-datos)
+- [Modificar los parámetros del algoritmo](#modificar-los-parámetros-del-algoritmo)
+- [Utilizar *cross-validation*](#utilizar-cross-validation)
+- [Medir el éxito de otra manera](#medir-el-éxito-de-otra-manera)
+- [Utilizar otros algoritmos](#utilizar-otros-algoritmos)
+- [Encarar el problema de otra manera](#encarar-el-problema-de-otra-manera)
 
 Todos los anteriores puntos fueron parte de nuestro análisis para este proyecto. A continuación una breve explicación de cada uno.
 
@@ -276,6 +278,8 @@ A veces menos es más, especialmente cuando pueda existir correlación entre dos
 Un ejemplo en nuestro caso, podría ser utilizar tanto la variable *edad* como la variable *año de nacimiento*. Claramente, habrá una correlación lineal y perfecta entre estas dos variables. El modelo se verá desbalanceado, favoreciendo la edad (o fecha de nacimiento) como un campo más poderoso.
 
 >**Tip:** Azure Machine Learning hace sencilla la búsqueda de correlación entre variables. Lo veremos más adelante.
+
+Busca reducir tu cantidad de variables de entrada al modelo. Puedes usar el componente *Select Columns in Dataset*.
 
 ### Utilizar más variables ###
 
