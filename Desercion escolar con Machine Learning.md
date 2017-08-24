@@ -429,7 +429,7 @@ Notarás que tienes dos formas de utilizarlo:
 
 Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
 
-![Probar el web service](https://github.com/marcelofelman/case-studies/blob/master/images/27-published-service.PNG?raw=true)
+![Probar el web service](https://github.com/marcelofelman/case-studies/blob/master/images/28-test-service.PNG?raw=true)
 
 >**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar atos.
 
