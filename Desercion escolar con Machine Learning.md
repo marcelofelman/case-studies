@@ -251,7 +251,7 @@ Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos disti
 - Estudiantes que dijimos que iban a abandonar, y NO abandonaron (falso positivo): 496
 - Estudiantes que dijimos que NO iban a abandonar, y NO abandonaron (verdadero negativo): 9474
 
-Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es mucho peor NO ayudar a un estudiante en riesgo de abandonar, que ayudar por demás a alguno que en realidad no iba abandonar. El costo de los falsos positivos supera el de los falsos negativos.
+Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es mucho peor NO ayudar a un estudiante en riesgo de abandonar, que ayudar por demás a alguno que en realidad no iba abandonar. El costo de los falsos negativos supera el de los falsos positivos.
 
 Como podemos ver arriba, estamos identificando a 777 jóvenes, pero "dejando pasar" a unos 913. Debemos mejorar nuestro modelo.
 
