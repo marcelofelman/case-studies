@@ -108,8 +108,7 @@ Authentication was one of the main challenges we had to solve. It is very import
 
 This is the authentication workflow we implemented to tackle this:
 
-**ARMAR GRAFICO**
-User makes a request that needs authentication -> Bot sends a link to log-in to Tambero.com -> User enters credentials on Tambero.com -> Tambero.com provides an authentication token -> Users pastes authentication code on bot -> Bot cross-checks that pasted code and generated code match
+![Tambero Skype Connection](https://github.com/marcelofelman/case-studies/blob/master/images/5-tambero-auth.png?raw=true)
 
 There are other ways to do this, and you could even do the token exchange behind the scenes, as many other apps do. We thought that giving that extra layer would help users feel more secure about this credential exchange.
 
