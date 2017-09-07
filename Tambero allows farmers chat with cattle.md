@@ -80,16 +80,9 @@ Microsoft's Bot Builder has versions for C# and Javascript, and for this project
 
 This way, the bot connects to Tambero's API via REST Calls. Most of the intents that LUIS can detect are directly mapped with API methods.
 
-Here's how it works:
+Here's how it works with a real example:
 
-**ARMAR GRAFICO**
-User sends message over Skype -> Message gets routed -> LUIS extracts intent -> According to intent, a different REST method is called -> Data comes back from Tambero.com -> Message is built and sent back over Skype
-
-**ARMAR GRAFICO**
-
-And here's a real example:
-
-"Hey Tambero, what is the pregnancy status for animal 52?" -> LUIS returns: { Intent: 'GetPregnancyStatus', Entities: [{ Name: '52', Type: 'Animal'}} -> Tambero's API call: GET /pregnancyStatus/52 -> API Response to Web App { Status: "Not pregnant" } -> Response to user: 'Hey Marcelo, it looks like Animal 52 is not pregnant.'
+![Tambero architecture diagram](https://github.com/marcelofelman/case-studies/blob/master/images/3-tambero-nlp.png?raw=true)
 
 ### Connecting to Skype ###
 
