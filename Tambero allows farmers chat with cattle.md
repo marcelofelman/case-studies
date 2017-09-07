@@ -36,7 +36,7 @@ This solution implements a Skype bot connected to natural language processing en
 
 ## Solution overview ##
 
-![Tambero architecture diagram](https://github.com/marcelofelman/case-studies/blob/master/images/1-tambero-architecture.PNG?raw=true)
+![Tambero architecture diagram](https://github.com/marcelofelman/case-studies/blob/master/images/1-tambero-architecture.png?raw=true)
 
 ### Natural Language Processing ###
 
