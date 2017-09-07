@@ -12,6 +12,7 @@ language: English
 verticals: The industry on which this article focuses; choose from the following: ["Agriculture, Forestry & Fishing"]
 geolocation: The geolocation of the article; choose one of the following: [South America]
 ---
+# Tambero - Digital Transformation in the farm #
 
 ## Summary ##
 
@@ -35,7 +36,7 @@ This solution implements a Skype bot connected to natural language processing en
 
 ## Solution overview ##
 
-![CaaP architecture diagram](/images/templates/caaparchitecture.png)
+![Tambero architecture diagram](https://github.com/marcelofelman/case-studies/blob/master/images/1-Tambero-Architecture.PNG?raw=true)
 
 ### Natural Language Processing ###
 
