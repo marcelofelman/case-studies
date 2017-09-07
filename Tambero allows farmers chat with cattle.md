@@ -118,12 +118,7 @@ Conversational bots are a different way to connect with end-users beyond web app
 
 Using a combination of Microsoft Bot Framework, Cognitive Services and Skype, we were able to build a break-through solution that allows farmers to manage their cattle straight from their phones with a personalized experience. Always keep in mind that challenges such as authentication or integration could emerge, so be ready to research and code!
 
-Here's a video of the bot's press release held in Buenos Aires, Argentina:
-
-**PEGAR VIDEO**
-
-On Tambero's own words:
-**CITA DE EDDIE**
+To close, here's a great video of this project you can watch: [Tambero app helps farmers increase production](https://www.youtube.com/watch?v=FD7UD87T8l0)
 
 ## Additional resources ##
 
@@ -132,7 +127,3 @@ On Tambero's own words:
 - [Microsoft Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/)
 - [Tutorial: Train LUIS](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/add-intents)
 - [Skype for Developers](https://dev.skype.com/bots)
-
-## Team ##
-
-*Include Microsoft and partner team members (denote company), GitHub IDs, and photo if desired.*
