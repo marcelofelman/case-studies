@@ -36,7 +36,11 @@ This solution implements a Skype bot connected to natural language processing en
 
 ## Solution overview ##
 
+On a high level, there are five basic components that interact on this solution. Each one of them has a very clear role, and has the ability to scale separately.
+
 ![Tambero architecture diagram](https://github.com/marcelofelman/case-studies/blob/master/images/1-tambero-architecture.png?raw=true)
+
+We'll dig deeper into each one of them.
 
 ### Natural Language Processing ###
 
@@ -90,8 +94,11 @@ One of the most important features of this bot, is the availability on popular c
 
 Here's how this connection works:
 
-**ARMAR GRAFICO**
-Tambero bot <-> Bot Connector <-> Skype API <-> Skype client <-> End user.
+![Tambero Skype Connection](https://github.com/marcelofelman/case-studies/blob/master/images/4-skype-connection.png?raw=true)
+
+It's very important to realize that the connection between the Skype API and the Bot Connector happens behind the scenes. This will save you lots of time implementing different APIs.
+
+Furthermore, you can connect to several different channels that are already available, such as Slack, Teams or even SMS. Using the Bot Connector allows for fast development on multiple channels. Truly multi-platform.
 
 If you'd like to learn how to connect your bot to Skype, you can follow this [guide](https://dev.skype.com/bots).
 
