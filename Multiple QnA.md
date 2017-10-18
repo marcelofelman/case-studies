@@ -12,6 +12,8 @@ Algunos links relevantes para que tengas presente:
 
 ## Vamos al código
 
+Ante todo, el código completo está o más abajo o en este repositorio: https://github.com/marcelofelman/cognitive-tools/tree/master/csharp 
+
 Primero vamos a definir una clase QnAMakerResult
 ```csharp
 public class QnAMakerResult
@@ -271,3 +273,10 @@ public static class QnAMakerRecognizer
     }
 }
 ```
+
+Cómo mejorar esto:
+* Definir estrategia: primer match mayor al umbral vs. mayor match
+* Agregar más fuentes
+* Portarlo a más lenguajes de programación
+
+Si decides hacerlo, por favor escribime vía Twitter en @mfelman o por mail a mfelman@microsoft.com
