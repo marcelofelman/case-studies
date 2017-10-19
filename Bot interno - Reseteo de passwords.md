@@ -131,7 +131,7 @@ Si quieres más detalle, mira [este link](https://docs.microsoft.com/en-us/bot-f
 
 Este es el producto final de nuestro bot.
 
-![CSV](https://github.com/marcelofelman/case-studies/blob/master/images/1-reset-password.PNG?raw=true)
+![CSV](https://github.com/marcelofelman/case-studies/blob/master/images/1-password-reset.JPG?raw=true)
 
 ## Equipo
 
