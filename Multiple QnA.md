@@ -1,6 +1,6 @@
 # Bots con Bot Builder v3 y múltiples QnA Makers
 
->**TL;DR** copia y pega este código para consumir múltiples QnA Maker apps desde Microsoft Bot Framework.
+>**TL;DR** usa este código para consumir múltiples QnA Maker apps desde Microsoft Bot Framework.
 
 ## Qué estamos haciendo
 Microsoft Bot Framework permite la integración con QnA Maker. Esto es muy simple de hacer, cuado uno tiene una única QnA Maker app. Con este código estamos creando un "reconocedor" que toma múltiples fuentes.
@@ -11,8 +11,6 @@ Algunos links relevantes para que tengas presente:
 * [Integrar Bot Builder con QnA Maker](https://docs.microsoft.com/en-us/bot-framework/azure-bot-service-template-question-answer)
 
 ## Vamos al código
-
-Ante todo, el código completo está o más abajo o en este repositorio: https://github.com/marcelofelman/cognitive-tools/tree/master/csharp 
 
 Primero vamos a definir una clase QnAMakerResult
 ```csharp
@@ -273,10 +271,3 @@ public static class QnAMakerRecognizer
     }
 }
 ```
-
-Cómo mejorar esto:
-* Definir estrategia: primer match mayor al umbral vs. mayor match
-* Agregar más fuentes
-* Portarlo a más lenguajes de programación
-
-Si decides hacerlo, por favor escribime vía Twitter en @mfelman o por mail a mfelman@microsoft.com
