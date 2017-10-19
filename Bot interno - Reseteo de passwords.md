@@ -43,13 +43,35 @@ Aparentemente es simple. Estos son los pasos que debemos seguir para su construc
 No vamos a deternos mucho en esta parte, ya que hay mucho contenido online sobre esto. Este es el código base que puedes utilizar para un diálogo de reestablecimiento de contraseñas como el de arriba
 
 ```csharp
-public static void elCodigo
+public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> item)
 {
-    //Poner aquí el diálogo..
+    var message = await item;
+    
+    var token = await context.GetAccessToken("https://graph.microsoft.com/");
+    if (string.IsNullOrEmpty(token))
+    {
+        await context.Forward(new AzureAuthDialog("https://graph.microsoft.com/"), this.resumeAfterAuth, message, CancellationToken.None);
+    }
+    else
+    {
+        var client = GetClient(token);
+        await client.Me.Request().UpdateAsync(new User
+        {
+            PasswordProfile = new PasswordProfile
+            {
+                Password = message.Text,
+                ForceChangePasswordNextSignIn = false
+            },
+        });
+        await context.PostAsync($"Password has already changed");
+        context.Wait(MessageReceivedAsync);
+    }
 }
 ```
 
-Si quieres ver el código completo, está en este otro repositorio **AGREGAR REPO!!!!**
+Absolutamente toda la magia está en *AzureAuthDialog*, y ese código lo puedes encontrar en: https://github.com/MicrosoftDX/AuthBot (créditos a Mat Velloso por la simplificación de este código).
+
+Si quieres ver el código completo, está en este otro [repositorio](https://github.com/marcelofelman/cognitive-tools/tree/master/csharp/AuthBot).
 
 No te olvides de probar el bot localmente con el [Bot Framework Emulator](https://github.com/Microsoft/BotFramework-Emulator) antes de seguir al siguiente paso.
 
@@ -57,10 +79,30 @@ No te olvides de probar el bot localmente con el [Bot Framework Emulator](https:
 
 El siguiente código resuelve toda la integración con Azure Active Directory. Dado que podíamos elegir entre Active Directory (on-premises) y Azure Active Directory, optamos por el segundo ya que era mucho más fácil. Siéntete libre de copiar y pegar, no le contaremos a nadie :)
 
+Estos dos métodos son necesarios, para obtener el cliente y lo que sucede luego de la autenticación. La parte más importante está arriba en *MessageReceivedAsync*. Si quieres ver el código completo, está en este otro [repositorio](https://github.com/marcelofelman/cognitive-tools/tree/master/csharp/AuthBot).
+
 ```csharp
-public static void elCodigo
+private static GraphServiceClient GetClient(string accessToken, IHttpProvider provider = null)
 {
-    //Poner aquí el código de AD..
+    var delegateAuthProvider = new DelegateAuthenticationProvider((requestMessage) =>
+    {
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
+
+        return Task.FromResult(0);
+    });
+
+    var graphClient = new GraphServiceClient(delegateAuthProvider, provider ?? HttpProvider);
+
+    return graphClient;
+}
+
+private async Task resumeAfterAuth(IDialogContext context, IAwaitable<string> result)
+{
+    var message = await result;
+    await context.PostAsync(message);
+
+    //Ahora que el token existe.. reenvíalo a donde quieras
+    //await context.Forward(new NewDialog(), null, message, CancellationToken.None);
 }
 ```
 
@@ -87,12 +129,11 @@ Si quieres más detalle, mira [este link](https://docs.microsoft.com/en-us/bot-f
 
 ## ¡Funciona!
 
-Este es el producto final de nuestro hermoso bot.
+Este es el producto final de nuestro bot.
 
-**PEGAR FOTO!!**
-
+![CSV](https://github.com/marcelofelman/case-studies/blob/master/images/1-reset-password.PNG?raw=true)
 
 ## Equipo
 
-* Amin Espinoza de los Monteros
-* Marcelo Felman
+* [Amin Espinoza de los Monteros](https://github.com/aminespinoza/)
+* [Marcelo Felman](https://github.com/marcelofelman/)
