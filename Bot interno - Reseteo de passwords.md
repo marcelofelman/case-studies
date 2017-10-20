@@ -7,6 +7,7 @@ Te presentamos un caso real: una empresa de casi 40.000 empleados recibe mensual
 Algunos detalles antes de empezar:
 * Los usuarios, roles y permisos se administran con Microsoft Active Directory (on-premises)
 * Existe una conexión con Azure Active Directory a través de AD Connect
+* Credenciales y contraseñas se manejan con Forefront Identity Manager (FIM)
 * Los usuarios utilizan Skype for Business y Microsoft Teams
 * Tecnología de desarrollo preferida es C#
 
@@ -34,13 +35,17 @@ Para este escenario, el flujo de conversación es el siguiente:
 
 Aparentemente es simple. Estos son los pasos que debemos seguir para su construcción:
 1. Crear un bot que soporte el diálogo de arriba
-2. Integrar el bot con Active Directory
+2. Integrar el bot con Active Directory y con Forefront Identity Manager
 3. Publicar el bot con el Microsoft Bot Framework Connector
 4. Generar la web y embeber el control Web Chat
 
 ## Crear el bot
 
-No vamos a deternos mucho en esta parte, ya que hay mucho contenido online sobre esto. Este es el código base que puedes utilizar para un diálogo de reestablecimiento de contraseñas como el de arriba
+No vamos a deternos mucho en esta parte, ya que hay mucho contenido online sobre esto. Este es el código base que puedes utilizar para un diálogo de reestablecimiento de contraseñas como el de arriba.
+
+El siguiente ejemplo de código, permite a un usuario autenticarse a través de chat y luego cambiar su contraseña. Sin embargo, esto nos sirve sólo parcialmente, ya que debemos tener en cuenta que el usuario _no_ puede autenticarse.
+
+Por tanto, debemos utilizar credenciales alternativas, como por ejemplo, preguntas de seguridad o e-mail alternativo. Eso lo podemos obtener con FIM.
 
 ```csharp
 public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> item)
