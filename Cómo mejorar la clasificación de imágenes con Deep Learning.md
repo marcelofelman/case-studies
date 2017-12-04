@@ -6,7 +6,10 @@ Existen técnicas y algoritmos de Deep Learning para clasificación de imágenes
 
 Estos aprendizajes los hemos adquirido trabajando con uno de nuestros clientes cuyo objetivo es crear una aplicación que permita clasificar el estado fenológico de una flor a partir de una imágen de la misma.
 
+Un estado fenológico indica el nivel de madurez 
+
 ![Estados fenológicos de una flor](https://github.com/marcelofelman/case-studies/blob/master/images/1-estados-fenologicos.png?raw=true)
+*Imagen cortesía de Wikipedia. Wikipedia: ![Research Gate](https://wikipedia.com)
 
 ## Ideas
 
