@@ -55,11 +55,33 @@ Alguno de los algoritmos, redes o técnicas que probamos:
 - [One-shot learning con Theano](https://github.com/tristandeleu/ntm-one-shot)
 - [One-shot learning con Tensorflow](https://github.com/AntreasAntoniou/MatchingNetworks)
 
-// Hablar sobre la complejidad
+One-shot learning es una técnica que apunta a crear modelos a partir de conjuntos de datos mucho más reducidos que los típicos. A grandes rasgos, la intención del algoritmo es emular la extracción de características como hacen los seres humanos, los cuales, por ejemplo, no necesitan ver millones de imágenes de un perro para reconocer que se trata de uno de ellos.
+
+Notarás que los links anteriores tienen un nivel considerable de complejidad. En nuestro caso, logramos implementar varios de estos modelos sin llegar al detalle fino sobre el comportamiento de cada parte. No es lo más recomendable, pero si lo más práctico.
+
+### AlexNet
+
+- [AlexNet con Keras](https://github.com/duggalrahul/AlexNet-Experiments-Keras)
+
+AlexNet es una red neuronal convolucional que ha recibido múltiples premios a nivel internacional por su performance en clasificación de imágenes. El artículo original puede encontrarse en [este link](http://vision.stanford.edu/teaching/cs231b_spring1415/slides/alexnet_tugce_kyunghee.pdf).
+
+AlexNet es otro de esos casos en los que podemos hacer pruebas sin bajar al detalle fino detrás de la red, y tomarlo como una caja negra.
+
+Desafortunadamente para nuestros casos, nuestros niveles de precisión no mejoraron. En un aspecto más positivo, nuestros tiempos de entrenamiento se vieron reducidos en un 50%.
+
+**Tip práctico** Intenta distintas redes, algoritmos o técnicas aún si tengamos que tratarlos como "cajas negras".
 
 ## Mejorar los datasets de entrenamiento
 
-Contar sobre la app..
+Algunas de las categorías resultaban difíciles de discernir inclusive para los expertos del dominio. Una buena idea es consultar con varios especialistas cuál es su *input* sobre una determinada imagen.
+
+Para ello, decidimos construir una aplicación web liviana que permitiera la clasificación de imágenes. El comportamiento es muy simple: muestra una imagen y permite elegir una categoría.
+
+![Aplicación de clasificación de imágenes](https://github.com/marcelofelman/case-studies/blob/master/images/2-app-clasificacion.png?raw=true)
+
+En nuestro caso optamos por crearla para satisfacer una necesidad bien particular, pero ten presente que existen muchísimas herramientas para anotar o clasificar imágenes.
+
+[Wikipedia ofrece una lista de más de una docena de herramientas.](https://en.wikipedia.org/wiki/List_of_manual_image_annotation_tools)
 
 ## Re-pensar las clases
 
