@@ -9,13 +9,14 @@ Estos aprendizajes los hemos adquirido trabajando con uno de nuestros clientes c
 Un estado fenológico de una planta indica el nivel de madurez de la misma según criterios que afectan su medio ambiente. Esto es particularmente interesante para agricultores o productores, ya que pueden determinar datos importantes tales como cuánto falta para cultivar, si hay enfermedades o si hay anomalías en los frutos.
 
 ![Estados fenológicos de una flor](https://github.com/marcelofelman/case-studies/blob/master/images/1-estados-fenologicos.png?raw=true)
-*Imagen cortesía de Wikipedia. [Wikipedia](https://wikipedia.com)
+
+*Imagen cortesía de Wikipedia. [Wikipedia](https://wikipedia.com)*
 
 El ejemplo anterior se trata de una clasificación de múltiples clases. Algunas resultan más fáciles de distinguir, mientras que otras a simple vista parecen similares e inclusive difíciles de distinguir para un experto del dominio.
 
 Si bien basaremos este ejemplo sobre estados fenológicos, ten en cuenta que estas prácticas aplican a cualquier tipo de clasficicación de imágenes.
 
-## Tecnologías empleadas
+## Tecnologías
 
 Para este proyecto contamos con:
 
@@ -85,7 +86,9 @@ En nuestro caso optamos por crearla para satisfacer una necesidad bien particula
 
 ## Re-pensar las clases
 
-Contar sobre clustering..
+De todos los puntos que --para nuestro caso-- trajeron un mayor grado de precisión, volver a pensar las clases fue el que mayor impacto tuvo.
+
+
 
 ## Crear un meta-modelo
 
