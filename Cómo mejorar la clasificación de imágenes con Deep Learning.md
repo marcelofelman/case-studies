@@ -39,16 +39,23 @@ Las tecnologías utilizadas fueron:
 
 En un contexto inicial, se lograba entre un 70 y 80% de precisión. Estas son algunas de las ideas que tuvimos para mejorar aquella precisión:
 
-- Probar distintos algoritmos
-- Mejorar los datasets de entrenamiento
-- Re-pensar las clases
-- Crear un meta-modelo
+- [Probar distintos algoritmos](#probar-distintos-algoritmos)
+- [Mejorar los datasets de entrenamiento](#mejorar-los-datasets-de-entrenamiento)
+- [Re-pensar las clases](#re-pensar-las-clases)
+- [Crear un meta-modelo](#crear-un-meta-modelo)
 
 ## Probar distintos algoritmos
 
 Una de las maneras más intuitivas de tratar de mejorar es probando con nuevos algoritmos, redes o técnicas. 
 
 Inicialmente, el modelo estaba basado en una red neuronal convolucional (CNN o ConvNet) creada con Keras. Más info [aquí](https://keras.io/layers/convolutional/). Una de las grandes ventajas de utilizar Keras, es que nos abstraemos enormemente de la implementación de los algoritmos. Además, podemos elegir entre Tensorflow, CNTK o Theano como motor de nuestras redes.
+
+Si no conoces Keras y estás empezando con Deep Learning, es altamente recomendado. La sintaxis le facilita muchas tareas al desarrollador. Sólo un ejemplo:
+
+```python
+# Compile model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+```
 
 Alguno de los algoritmos, redes o técnicas que probamos:
 
@@ -132,4 +139,5 @@ El aprendizaje más importante que obtuvimos en este escenario es que, inclusive
 ## Equipo
 
 Jorge Cupi - [Twitter](https://twitter.com/jorgecupi) - [GitHub](https://github.com/jorgecupi)
+
 Marcelo Felman - [Twitter](https://twitter.com/mfelman) - [GitHub](https://github.com/marcelofelman)
