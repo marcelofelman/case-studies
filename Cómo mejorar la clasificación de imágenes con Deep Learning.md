@@ -84,24 +84,50 @@ En nuestro caso optamos por crearla para satisfacer una necesidad bien particula
 
 [Wikipedia ofrece una lista de más de una docena de herramientas.](https://en.wikipedia.org/wiki/List_of_manual_image_annotation_tools)
 
+Recuerda que los conjuntos de entrenamientos son la parte más importante de tu aplicación, un error puede ser muy costos en la precisión del modelo.
+
 ## Re-pensar las clases
 
 De todos los puntos que --para nuestro caso-- trajeron un mayor grado de precisión, volver a pensar las clases fue el que mayor impacto tuvo.
 
+¿Por qué 7 categorías y no menos? ¿Tiene algún sentido desde el punto de vista del negocio?
 
+Esas dos preguntas permitieron re-pensar nuestro enfoque de manera completamente distinta. Para ello, en resumidas cuentas, empleamos un algoritmo de entrenamiento no supervisado llamado k-means que tiene por objetivo encontrar relaciones o grupos entre los datos.
+
+Este algoritmo nos dio como resultado que existían idealmente 5 clases en lugar de 7. De esta forma, pudimos re-catalogar nuestra información para lograr mejor precisión. Recuerda: ante menos clases, mayor probabilidad de acertar correctamente.
+
+Al ser este caso tan importante, creamos un documento independiente a este. Puedes ver más información [aquí](completar con el link de clustering).
 
 ## Crear un meta-modelo
 
-Contar sobre redes binarias para estados coludidos
+Un meta-modelo es básicamente un modelo constituído por distintos modelos. Esto tiene una gran ventaja, que es que pudimos crear una red neuronal "generalista" que es relativamente buena en identificar las clases. Por otra parte, podemos crear otras redes neuronales que son muy buenas en "desempatar" o en clasificar dos estados difíciles de entender.
 
-## Resultados
+Un ejemplo: si observas la figura c y d del ejemplo de arriba, notarás que son imágenes muy similares. Nuestro modelo tal vez pueda ser muy bueno en detectar las diferencias entre a y d, pero no tanto para c y d. Entonces, creamos otra red que sea muy buena clasificando entre esos dos ejemplos.
 
-Contar cómo quedó..
+A nivel pseudo-código, funciona de la siguiente forma:
 
-## Conclusiones
+-> Nueva imagen -> Consultar con la red neuronal general
+    -> Si la precisión es baja para un estado "difícil"
+        -> Consultar con la red experta en desempatar estados difíciles
+    -> Sino, me quedo con el resultado
 
-Concluir..
+Esta última parte no tiene tanto que ver con lógica de ciencia de datos, sino más bien se trata de un *hack* de programadores 😀.
+
+## Resultados y conclusiones
+
+Tras estos cambios, nuestro modelo logró una mejor precisión total para la clasificación de imágenes. Dada la sensibildad de los casos de nuestro cliente, no podemos compartir los números exactos.
+
+Puntualmente, cada sección resultó de distintas maneras:
+
+- One-shot learning: es complejo de implementar y la performance resultó similar a una CNN.
+- AlexNet: la performance resulto similar a una CNN, pero los tiempos de entrenamiento se redujeron.
+- Clustering: pieza importantísima que permitió, sin cambios en el código, enfocar el problema de otra forma.
+- Revisión de etiquetas: siempre ayuda refinar el conjunto de datos
+- Meta-modelo: aumenta los costos y la complejidad favoreciendo la performance y precisión.
+
+El aprendizaje más importante que obtuvimos en este escenario es que, inclusive en Deep Learning, *no todos los problemas se resuelven con redes más complejas, más parámetros, algoritmos más sofisticados o más GPU*. A veces, todo lo que necesitas es dar un paso atrás y ver tus problemas desde otra óptica.
 
 ## Equipo
 
-George & Marce 
+Jorge Cupi - [Twitter](https://twitter.com/jorgecupi) - [GitHub](https://github.com/jorgecupi)
+Marcelo Felman - [Twitter](https://twitter.com/mfelman) - [GitHub](https://github.com/marcelofelman)
