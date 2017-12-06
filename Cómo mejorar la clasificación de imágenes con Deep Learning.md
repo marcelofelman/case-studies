@@ -115,13 +115,15 @@ Un ejemplo: si observas la figura c y d del ejemplo de arriba, notarás que son 
 
 A nivel pseudo-código, funciona de la siguiente forma:
 
+```bash
 -> Nueva imagen -> Consultar con la red neuronal general
 
     -> Si la precisión es baja para un estado "difícil"
 
         -> Consultar con la red experta en desempatar estados difíciles
-        
+
     -> Sino, me quedo con el resultado
+```
 
 Esta última parte no tiene tanto que ver con lógica de ciencia de datos, sino más bien se trata de un *hack* de programadores 😀.
 
