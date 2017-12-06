@@ -1,5 +1,7 @@
 # Cómo mejorar la clasificación de imágenes con Deep Learning
 
+>**TL;DR** sigue algunas de estas ideas para mejorar tus modelos de clasificación de imágenes.
+
 Existen técnicas y algoritmos de Deep Learning para clasificación de imágenes que permiten alcanzar niveles de precisión *aceptables* sin que siquiera entremos en detalle de cómo funcionan, qué parámetros reciben o detalles más finos de implementación. En este post recorreremos distintas formas prácticas de mejorar nuestros modelos cuando deseemos llevar nuestra performance al siguiente nivel.
 
 ## Contexto
