@@ -79,7 +79,7 @@ AlexNet es otro de esos casos en los que podemos hacer pruebas sin bajar al deta
 
 Desafortunadamente para nuestros casos, nuestros niveles de precisión no mejoraron. En un aspecto más positivo, nuestros tiempos de entrenamiento se vieron reducidos en un 50%.
 
-**Tip práctico** Intenta distintas redes, algoritmos o técnicas aún si tengamos que tratarlos como "cajas negras".
+>**Tip práctico** Intenta distintas redes, algoritmos o técnicas aún si tengamos que tratarlos como "cajas negras".
 
 ## Mejorar los datasets de entrenamiento
 
@@ -97,11 +97,11 @@ Recuerda que los conjuntos de entrenamientos son la parte más importante de tu 
 
 ## Re-pensar las clases
 
-De todos los puntos que --para nuestro caso-- trajeron un mayor grado de precisión, volver a pensar las clases fue el que mayor impacto tuvo.
+De todos los puntos que -para nuestro caso- trajeron un mayor grado de precisión, volver a pensar las clases fue el que mayor impacto tuvo.
 
 ¿Por qué 7 categorías y no menos? ¿Tiene algún sentido desde el punto de vista del negocio?
 
-Esas dos preguntas permitieron re-pensar nuestro enfoque de manera completamente distinta. Para ello, en resumidas cuentas, empleamos un algoritmo de entrenamiento no supervisado llamado k-means que tiene por objetivo encontrar relaciones o grupos entre los datos.
+Esas dos preguntas permitieron re-pensar nuestro enfoque de manera completamente distinta. Para ello, en resumidas cuentas, empleamos un algoritmo de entrenamiento no supervisado llamado *k-means* que tiene por objetivo encontrar relaciones o grupos entre los datos.
 
 Este algoritmo nos dio como resultado que existían idealmente 5 clases en lugar de 7. De esta forma, pudimos re-catalogar nuestra información para lograr mejor precisión. Recuerda: ante menos clases, mayor probabilidad de acertar correctamente.
 
@@ -116,8 +116,11 @@ Un ejemplo: si observas la figura c y d del ejemplo de arriba, notarás que son 
 A nivel pseudo-código, funciona de la siguiente forma:
 
 -> Nueva imagen -> Consultar con la red neuronal general
+
     -> Si la precisión es baja para un estado "difícil"
+
         -> Consultar con la red experta en desempatar estados difíciles
+        
     -> Sino, me quedo con el resultado
 
 Esta última parte no tiene tanto que ver con lógica de ciencia de datos, sino más bien se trata de un *hack* de programadores 😀.
