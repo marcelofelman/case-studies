@@ -18,7 +18,7 @@ A través de las herramientas [Azure Machine Learning](https://azure.microsoft.c
 
 [Salta](https://es.wikipedia.org/wiki/Salta_(ciudad)) es una de las ciudades más pobladas de Argentina y capital de la provincia con igual nombre.
 
-Con una población que supera los 500.000 habitantes, su Ministerio de Primera Infancia tiene por misión erradicar la pobreza en la provincia. Con este objetivo en mente, la educación constituye un pilar fundamental para el desarrollo. El Ministerio de Primera Infancia propone mejorar los niveles educativos identificando con Inteligencia Artificial aquellos jóvenes en riesgo de abandonar sus estudios.
+Con una población que supera los 500.000 habitantes, su [Ministerio de Primera Infancia](http://www.salta.gov.ar/organismos/ministerio-de-la-primera-infancia/30) tiene por misión erradicar la pobreza en la provincia. Con este objetivo en mente, la educación constituye un pilar fundamental para el desarrollo. El [Ministerio de Primera Infancia](http://www.salta.gov.ar/organismos/ministerio-de-la-primera-infancia/30) propone mejorar los niveles educativos identificando con Inteligencia Artificial aquellos jóvenes en riesgo de abandonar sus estudios.
 
 La duración del proyecto fueron dos semanas, en las cuales iniciamos desde la exploración del dominio hasta la publicación de un servicio web predictivo.
 
@@ -39,7 +39,7 @@ La duración del proyecto fueron dos semanas, en las cuales iniciamos desde la e
 
 Antes de empezar, debemos comprender el dominio en el cual estamos trabajando. Si bien lo ideal es contar con un experto en el dominio, no siempre lo tendremos a disposición. Para esto, es importante tener en cuenta diferentes técnicas así como también ejercitar nuestro sentido común.
 
-Para comenzar a visualizar los datos, soy partidario de utilizar un motor de bases de datos, como puede ser SQL Server. De esta forma puedo escribir consultas SQL fácilmente y además exportar como CSV o inclusive conectar con Azure Machine Learning.
+Para comenzar a visualizar los datos, soy partidario de utilizar un motor de bases de datos, como puede ser SQL Server. De esta forma, puedo escribir consultas SQL fácilmente y además exportar un archivo en formato `.CSV` o inclusive conectar con [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/).
 
 Para este proyecto, contamos con una tabla principal la cual contiene información de las personas: edad, altura, máximo nivel educativo, barrio/zona en donde residen. A su vez, contiene información referencial (*foreign keys*) hacia sus padres o jefes de hogar.
 
@@ -66,11 +66,11 @@ Para ir familiarizándote con el conjunto de datos, es bueno que ejecutes alguna
 
 - Cantidad total de personas
 - Cantidad de jóvenes (menores de 21 años)
-- Cantidad de jóvenes que terminan la secundaria versus los que no
-- Cantidad de personas que terminan la secundaria versus los que no
+- Cantidad de jóvenes que terminan la secundaria _versus_ los que no
+- Cantidad de personas que terminan la secundaria _versus_ los que no
 - Tasa de deserción por zona en donde viven
 
->**Tip:** Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 o 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
+>**Tip:** Invierte todo el tiempo que creas necesario para entender las relaciones entre los datos. 2 ó 3 días enfocado en esto puede ser un tiempo razonable (aunque parezca mucho), dependiendo del dominio.
 
 ### Ejemplo #2 ###
 
@@ -106,11 +106,11 @@ Como puedes ver, distintas zonas tienen distintas tasas de deserción. Esto pued
 
 ### Iteración ###
 
-A estas alturas, empezarás a darte cuenta de ciertas variables que pueden llegar a ser o no relevantes en nuestro modelo. Proyécatalas todas y luego en Azure Machine Learning validaremos cuáles son las que sirven.
+A estas alturas, empezarás a darte cuenta de ciertas variables que pueden llegar a ser o no relevantes en nuestro modelo. Proyéctalas todas y luego en [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) validaremos cuáles son las que sirven.
 
 Para nuestro modelo, utilizaré inicialmente las siguientes variables:
 
-- Edad del jóven
+- Edad del joven
 - Zona donde reside
 - Etnia
 - Sexo
@@ -122,48 +122,48 @@ Luego iteraremos para entender si estas variables nos sirven o no.
 
 ## Preparación de los datos ##
 
-Ahora que sabemos qué datos queremos utilizar, debemos prepararlos para ir hacia Azure Machine Learning. Estando en SQL Server, una manera simple de hacerlo es guardando los resultados de nuestra consulta como CSV. Para ello, debemos seguir estos pasos:
+Ahora que sabemos qué datos queremos utilizar, debemos prepararlos para ir hacia Azure Machine Learning. Estando en SQL Server, una manera simple de hacerlo es guardando los resultados de nuestra consulta como `CSV`. Para ello, debemos seguir estos pasos:
 
 1. Abrir SQL Server Management Studio
-2. Ir a *Tools > Options > Query Results > SQL Server > Results to text*
-3. A la derecha, busca el menú que dice *Output Format*
-4. Elegí *Comma Delimited* y click en OK
+2. Ir a `Tools` > `Options` > `Query Results` > `SQL Server` > `Results to text`
+3. A la derecha, busca el menú que dice `Output Format`
+4. Elegí `Comma Delimited` y clic en `OK`
 
 ![CSV](https://github.com/marcelofelman/case-studies/blob/master/images/1-sql-options.PNG?raw=true)
 
-Luego, haciendo click en el siguiente botón, podrás correr tus consultas y guardar los resultadso en un archivo.
+Luego, haciendo clic en el siguiente botón, podrás correr tus consultas y guardar los resultados en un archivo.
 
 ![Guardar resultado como archivo](https://github.com/marcelofelman/case-studies/blob/master/images/2-sql-results.PNG?raw=true)
 
-Ahora podrás guardar tus consultas como CSV.
+Ahora podrás guardar tus consultas como `CSV`.
 
-Esto nos generará un archivo de tipo .rpt, al cual simplemente cambiar su extensión a .csv y abrirlo como tal.
+Esto nos generará un archivo de tipo `.rpt`, al cual simplemente cambiaremos su extensión a `.csv` para posteriormente abrirlo como tal.
 
->**Tip:** Los archivos CSV pueden abrirse con Excel. Si te hace sentir más cómodo, chequealo antes de seguir con el próximo paso.
+>**Tip:** Los archivos `CSV` pueden abrirse con Excel. Si te hace sentir más cómodo, verifícalo antes de seguir con el próximo paso.
 
 Ahora, procedemos a ingresar al [Azure Machine Learning Studio](https://studio.azureml.net). Si no tienes una cuenta, puedes crearla de forma gratuita allí mismo.
 
 ![Azure Machine Learning Studio](https://github.com/marcelofelman/case-studies/blob/master/images/3-ml-studio.PNG?raw=true)
 
-Al ingresar, hacemos click en *New* y luego en *Dataset*
+Al ingresar, hacemos clic en `New` y luego en `Dataset`.
 
 ![Subir el conjunto de datos](https://github.com/marcelofelman/case-studies/blob/master/images/4-upload-dataset.PNG?raw=true)
 
-Subimos nuestro conjunto de datos, y al cabo de unos segundos estará en Azure.
+Subimos nuestro conjunto de datos, y al cabo de unos segundos estarás en Azure.
 
-Ahora puedes crear un nuevo experimento haciendo click en *+NEW > Blank Experiment*
+Ahora puedes crear un nuevo experimento haciendo clic en `+NEW` > `Blank Experiment`
 
->**Tip:** Puedes ponerle el nombre que quieras haciendo click en el nombre por defecto.
+>**Tip:** Puedes ponerle el nombre que quieras haciendo clic en el nombre por defecto.
 
-Ya subido el dataset, el mismo aparecerá en la solapa *My datasets* y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
+Ya subido el dataset, el mismo aparecerá en la solapa `My datasets` y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
 
 ![Nuevo experimento](https://github.com/marcelofelman/case-studies/blob/master/images/5-new-experiment.PNG?raw=true)
 
-Si quieres visualizarlo, puedes hacer click en la salida del módulo y otro click en *visualize*.
+Si quieres visualizarlo, puedes hacer clic en la salida del módulo y otro clic en `visualize`.
 
 ![Visualizar conjunto de datos](https://github.com/marcelofelman/case-studies/blob/master/images/6-visualize-dataset.PNG?raw=true)
 
-Deberías ver una pantalla similar a esta, pero con tus propios datos. Si haces click en cada una de las columnas, podrás ver la distribución junto con un histograma a la derecha.
+Deberías ver una pantalla similar a ésta, pero con tus propios datos. Si haces clic en cada una de las columnas, podrás ver la distribución junto con un histograma a la derecha.
 
 ![Visualizar los datos](https://github.com/marcelofelman/case-studies/blob/master/images/7-visualize-chart.PNG?raw=true)
 
@@ -171,37 +171,37 @@ Deberías ver una pantalla similar a esta, pero con tus propios datos. Si haces 
 
 Ahora empezaremos a crear nuestros modelos predictivos. Como mencionamos anteriormente, lo que estamos buscando es predecir *si un jóven terminó la secundaria o no*. En otras palabras, es una clasificación binaria (de dos clases). Para más información sobre clasificación binaria y otros tipos de problemas, puedes ver [aquí](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice).
 
-Para resolver este problema, existen diferentes algoritmos. Recuerda que los diferentes algoritmos son simplemente distintas formas de abordar a un resultado. Algunos llegan a mejores resultados, pero esto no está garantizado. Si quieres ver el listado y ventajas de cada uno de los algoritmos, lo puedes ver [aquí](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Yo empezaré utilizando un *Two-class Boosted Decision Tree*, el cual es balanceado en cuanto a consumo de recursos y exactitud en sus resultados.
+Para resolver este problema, existen diferentes algoritmos. Recuerda que los diferentes algoritmos son simplemente distintas formas de abordar un resultado. Algunos llegan a mejores resultados, pero esto no está garantizado. Si quieres ver el listado y ventajas de cada uno de los algoritmos, lo puedes ver [aquí](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Yo empezaré utilizando un *Two-class Boosted Decision Tree*, el cual es balanceado en cuanto a consumo de recursos y exactitud en sus resultados.
 
 >**Tip:** Todavía no te preocupes tanto por el algoritmo que utilizarás. Tendrás tiempo de probar otros más adelante.
 
 ### Entrenamiento supervisado ###
 
-Clasificación binaria utiliza una práctica llamada [Entrenamiento Supervisado](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Esto significa que diviremos nuestro conjunto en dos partes: datos de entrenamiento y datos de prueba.
+Clasificación binaria utiliza una práctica llamada [Entrenamiento Supervisado](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Esto significa que dividiremos nuestro conjunto en dos partes: datos de entrenamiento y datos de prueba.
 
 Los datos de entrenamiento serán utilizados para crear nuestro modelo y ajustar sus parámetros. En cuanto a los datos de prueba, ignoraremos la respuesta conocida (si abandonó o no la secundaria) para probar el comportamiento de nuestro modelo. Luego, compararemos la respuesta real con nuestra predicción, y sabremos qué tan bien funciona nuestro modelo.
 
-Para realizar esto, utilizaremos el módulo *Split Data*
+Para realizar esto, utilizaremos el módulo `Split Data`
 
 ![Split data](https://github.com/marcelofelman/case-studies/blob/master/images/8-split-data.PNG?raw=true)
 
->**Tip:** Puedes agregar comentarios a los componentes, haciendo doble click en la caja.
+>**Tip:** Puedes agregar comentarios a los componentes, haciendo doble clic en la caja.
 
 Puedes ajustar qué cantidad de datos irán para cada salida, en la solapa de la derecha.
 
 >**Tip:** Utiliza más datos de entrenamiento que datos de prueba. Según la [distribución de Pareto](https://es.wikipedia.org/wiki/Distribución_de_Pareto), 80 para entrenamiento y 20 para pruebas es adecuado.
 
-Si no quieres utilizar todas las columnas en tu dataset y deseas filtrar algunas, puede usar el componente *Select Columns in Dataset*. [Aquí](https://msdn.microsoft.com/en-us/library/azure/dn905883.aspx) explican cómo usarlo.
+Si no quieres utilizar todas las columnas en tu dataset y deseas filtrar algunas, puede usar el componente `Select Columns in Dataset`. [Aquí](https://msdn.microsoft.com/en-us/library/azure/dn905883.aspx) explican cómo usarlo.
 
 ### Crear el modelo ###
 
-Para crear el modelo, debes simplemente conectar la salida izquierda de *Split Data* (que son los datos de entrenamiento) con la entrada derecha del módulo *Train model* ó Entrenar modelo en Español.
+Para crear el modelo, debes simplemente conectar la salida izquierda de `Split Data` (que son los datos de entrenamiento) con la entrada derecha del módulo `Train model` o `Entrenar modelo` en Español.
 
-La entrada izquierda de *Train model* debe conectarse con un algoritmo, en este caso utilizaré *Two-class Boosted Decision Tree*.
+La entrada izquierda de `Train model` debe conectarse con un algoritmo, en este caso utilizaré `Two-class Boosted Decision Tree`.
 
 ![Entrenar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/9-train-model.PNG?raw=true)
 
-Seguro notes una cruz roja en el módulo *Train model*. Esto se debe a que debemos enseñarle al software cuál es el campo que buscamos predecir. En mi caso, quiero predecir el campo binario *AbandonoEstudios*.
+Seguro notes una cruz roja en el módulo `Train model`. Esto se debe a que debemos enseñarle al software cuál es el campo que buscamos predecir. En mi caso, quiero predecir el campo binario *AbandonoEstudios*.
 
 Usa el selector de columna a la derecha para elegir el campo.
 
@@ -209,34 +209,34 @@ Usa el selector de columna a la derecha para elegir el campo.
 
 En otros términos, estamos utilizando un algoritmo y datos de entrenamiento, para entrenar un modelo. Estamos casi listos.
 
->**Tip:** En cualquier paso de la experimentación, puedes darle *Run* y visualizar la salida de cada componente con click derecho > Visualize. En esta instancia, puedes visualizar las salidas izquierda y derecha de *Split Data* como también podrías ver la salida del modelo entrenado.
+>**Tip:** En cualquier paso de la experimentación, puedes darle `Run` y visualizar la salida de cada componente con `clic derecho` > `Visualize`. En esta instancia, puedes visualizar las salidas izquierda y derecha de `Split Data` como también podrías ver la salida del modelo entrenado.
 
 ### Realizar las predicciones ###
 
-Estamos en condiciones de probar nuestro modelo. Para ello, debemos utilizar el componente *Score model*. Aquí es donde entran en juego los datos de prueba, los cuales (salida derecha de *Split data*) conectaremos a la entrada derecha de *Score model*.
+Estamos en condiciones de probar nuestro modelo. Para ello, debemos utilizar el componente `Score model`. Aquí es donde entran en juego los datos de prueba, los cuales (salida derecha de `Split data`) conectaremos a la entrada derecha de `Score model`.
 
 ![Score model](https://github.com/marcelofelman/case-studies/blob/master/images/11-score-model.PNG?raw=true)
 
-Puedes darle *Run* y luego visualizar el resultado (su salida). Este componente genera las predicciones y agrega dos nuevas columnas:
+Puedes darle `Run` y luego visualizar el resultado (su salida). Este componente genera las predicciones y agrega dos nuevas columnas:
 
-- *Scored label*: indica la categoría que predice nuestro modelo. En este caso será 'SI' o 'NO'.
-- *Scored probabilities*: indica la probabilidad que tenía de tomar la etiqueta positiva.
+- `Scored label`: indica la categoría que predice nuestro modelo. En este caso será 'SI' o 'NO'.
+- `Scored probabilities`: indica la probabilidad que tenía de tomar la etiqueta positiva.
 
-Por ejemplo, si un caso nos dio de *Scored label* 'SI' y *Scored probabilities* 0,70 entonces el modelo dice que con un 70% de confianza, ese jóven abandonará la secundaria.
+Por ejemplo, si un caso nos dio de `Scored label` 'SI' y `Scored probabilities` 0,70 entonces el modelo dice que con un 70% de confianza, ese joven abandonará la secundaria.
 
 ![Valores categorizados](https://github.com/marcelofelman/case-studies/blob/master/images/12-scored-model.PNG?raw=true)
 
 ### Evaluar el comportamiento del modelo ###
 
-En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos eso como un todo. Para ello, utilizaremos el módulo *Evaluate model* el cual toma como entrada la salida de *Score model*.
+En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos eso como un todo. Para ello, utilizaremos el módulo `Evaluate model` el cual toma como entrada la salida de `Score model`.
 
 ![Evaluar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/13-evaluate-model.PNG?raw=true)
 
-Si damos *Run* visualizamos la salida de *Evaluate model*, podremos ver la siguiente gráfica:
+Si damos `Run` visualizamos la salida de `Evaluate model`, podremos ver la siguiente gráfica:
 
 ![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/14-auc.PNG?raw=true)
 
-Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (*Area under the curve* o también *AUC*) debe ser lo mayor posible: no queremos dejar casos afuera.
+Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (`Area under the curve` o también `AUC`) debe ser lo mayor posible: no queremos dejar casos afuera.
 
 A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **87,9%** de las veces está realizando una predicción correcta.
 
@@ -279,7 +279,7 @@ Un ejemplo en nuestro caso, podría ser utilizar tanto la variable *edad* como l
 
 >**Tip:** Azure Machine Learning hace sencilla la búsqueda de correlación entre variables. Lo veremos más adelante.
 
-Busca reducir tu cantidad de variables de entrada al modelo. Puedes usar el componente *Select Columns in Dataset*.
+Busca reducir tu cantidad de variables de entrada al modelo. Puedes usar el componente `Select Columns in Dataset`.
 
 ### Utilizar más variables ###
 
@@ -298,23 +298,23 @@ Debes evaluar en cada caso si pueden existir más campos que tengan sentido agre
 
 Tal vez pueda sorprendernos que aquel campo del cual creíamos que nos servía, en realidad no lo hacía. Una manera simple de saber si estamos utilizando las variables correctas, es buscando correlación.
 
-Esto puede hacerse a través del módulo *Feature Selection*. Es importante saber que antes de usar este módulo, debes editar metadata para indicar sobre qué columna quieres encontrar correlación. Más información [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905912.aspx).
+Esto puede hacerse a través del módulo `Feature Selection`. Es importante saber que antes de usar este módulo, debes editar metadata para indicar sobre qué columna quieres encontrar correlación. Más información [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905912.aspx).
 
 ![Selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/16-feature-selection.PNG?raw=true)
 
-No olvides en la solapa derecha, elegir algún método de detección de correlación junto con el selector de columnas. En mi caso, será AbandonoEstudios. Recuerda que también puedes chequear la existencia de correlación entre otras columnas.
+No olvides en la solapa derecha, elegir algún método de detección de correlación junto con el selector de columnas. En mi caso, será `AbandonoEstudios`. Recuerda que también puedes chequear la existencia de correlación entre otras columnas.
 
 ![Propiedades de selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/17-feature-selection-properties.PNG?raw=true)
 
-Si visualizas la salida derecha del módulo *Feature Selection*, podrás ver lo siguiente:
+Si visualizas la salida derecha del módulo `Feature Selection`, podrás ver lo siguiente:
 
 ![Resultados de selección de campos](https://github.com/marcelofelman/case-studies/blob/master/images/18-feature-selection-results.PNG?raw=true)
 
-Las columnas estarán ordenadas de mayor a menor en cuanto al nivel de correlación. En este caso, por ejemplo, la variable que mayor relación guarda con AbandonoEstudios es Edad. Esto no me sorprende, ya que coincido con que sea más probable que un jóven deje la secundaria a mayor edad. Es más probable que abandones a los 17 que a los 13.
+Las columnas estarán ordenadas de mayor a menor en cuanto al nivel de correlación. En este caso, por ejemplo, la variable que mayor relación guarda con `AbandonoEstudios` es `Edad`. Esto no me sorprende, ya que coincido con que sea más probable que un joven deje la secundaria a mayor edad. Es más probable que abandones a los 17 que a los 13.
 
 ### Balancear el conjunto de datos ###
 
-Un problema típico son los conjuntos de datos desbalanceados. En este caso, la probabilidad de ocurrencia de un menor de 21 años de abandonar la secundaria está alrededor del 7%. En otras palabras, el 7% de los registros dice AbandonoEstudios 'SI' mientras que el 93% dice 'NO'.
+Un problema típico son los conjuntos de datos desbalanceados. En este caso, la probabilidad de ocurrencia de un menor de 21 años de abandonar la secundaria está alrededor del 7%. En otras palabras, el 7% de los registros dice `AbandonoEstudios` 'SI' mientras que el 93% dice 'NO'.
 
 Si lo piensas en frío, si creáramos un modelo que siempre diga 'NO' entonces estaríamos acertando el 93% de las veces (lo cual es puntaje muy alto). Esto no es bueno.
 
@@ -323,11 +323,11 @@ Esta situación puede generar un balanceo que favorezca el escenario mayoritario
 - *Undersampling*: tomar menos casos del escenario mayoritario a fin de reducir las ocurrencias.
 - *Oversampling*: aumentar o simular más ocurrencias del caso minoritario.
 
-De esta manera, logramos un conjunto de datos más balanceado. Una manera simple y casi automática de lograr esto, es utilizando el módulo *SMOTE*, que significa *Synthetic Minority Oversampling* o bien sobre-muestreo sintético de minorías. No olvides aquí también editar metadata.
+De esta manera, logramos un conjunto de datos más balanceado. Una manera simple y casi automática de lograr esto, es utilizando el módulo `SMOTE`, que significa `Synthetic Minority Oversampling` o bien sobre-muestreo sintético de minorías. No olvides aquí también editar metadata.
 
 ![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/19-smote.PNG?raw=true)
 
->**Tip:** En la solapa Propiedades de *SMOTE*, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
+>**Tip:** En la solapa Propiedades de `SMOTE`, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
 
 ![Resultados de SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/20-smote-results.PNG?raw=true)
 
@@ -337,13 +337,13 @@ Como podemos ver, nuestro conjunto de datos ahora está balanceado, probablement
 
 Recuerda que el algoritmo es la secuencia lógica que utilizaremos para llegar a la mejor respuesta posible. Una buena práctica es realizar un barrido de parámetros para encontrar la mejor combinación posible.
 
-El módulo *Tune Model Hyperparameters* hace exactamente esto: barre los parámetros hasta llegar al mejor modelo encontrado.
+El módulo `Tune Model Hyperparameters` hace exactamente esto: barre los parámetros hasta llegar al mejor modelo encontrado.
 
 Puedes utilizarlo de la siguiente manera:
 
 ![SMOTE](https://github.com/marcelofelman/case-studies/blob/master/images/21-tune-parameters.PNG?raw=true)
 
-Más información sobre *Tune Model Hyperparameters* [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905810.aspx)
+Más información sobre `Tune Model Hyperparameters` [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905810.aspx)
 
 ### Utilizar cross-validation ###
 
@@ -366,21 +366,21 @@ Existen distintas maneras de medir si un modelo es exitoso o no. Estas son algun
 - *Recall*: proporción de verdaderos positivos identificados correctamente.
 - Puntaje F1: combinación entre *recall* y precisión.
 
->**Tip:** En el módulo de *Tune Model Hyperparameters*, verás que podrás entrenar modelos priorizando cada una de estas métricas. Es importante tener en cuenta aquella que mas importante sea para nuestro caso.
+>**Tip:** En el módulo de `Tune Model Hyperparameters`, verás que podrás entrenar modelos priorizando cada una de estas métricas. Es importante tener en cuenta aquella que más importante sea para nuestro caso.
 
 ### Utilizar otros algoritmos ###
 
-En determinados casos, distintos algoritmos podrían llegar a mejores resultados. No dejes de probar distintas alternativas. Para ello, simplemente conecta un algoritmo diferente a la entrada de *Train model*. Eso es todo.
+En determinados casos, distintos algoritmos podrían llegar a mejores resultados. No dejes de probar distintas alternativas. Para ello, simplemente conecta un algoritmo diferente a la entrada de `Train model`. Eso es todo.
 
 ![Dos algoritmos](https://github.com/marcelofelman/case-studies/blob/master/images/23-two-algorithms.PNG?raw=true)
 
->**Tip:** El módulo *Evaluate model* permite dos entradas. De esta forma, puedes comparar dos algoritmos fácilmente.
+>**Tip:** El módulo `Evaluate model` permite dos entradas. De esta forma, puedes comparar dos algoritmos fácilmente.
 
 ![Comparación](https://github.com/marcelofelman/case-studies/blob/master/images/24-comparing-algorithms.PNG?raw=true)
 
-En este caso estoy comparando *Two Class Boosted Decision Tree* versus *Two Class Bayes Point Machine*. Podemos ver que se comportan de una manera muy similar.
+En este caso, estoy comparando `Two Class Boosted Decision Tree` versus `Two Class Bayes Point Machine`. Podemos ver que se comportan de una manera muy similar.
 
->**Tip:** Haciendo click en los nombres y colores de la derecha, podemos ver la performance de cada algoritmo.
+>**Tip:** Haciendo clic en los nombres y colores de la derecha, podemos ver la performance de cada algoritmo.
 
 ### Encarar el problema de otra manera ###
 
@@ -396,7 +396,7 @@ Si quieres conocer más sobre detección de anomalías, puede ir a [este artícu
 
 Hemos llegado a la instancia donde estamos conformes sobre nuestro modelo, y queremos que sea consumido. La forma más simple será a través de un *Web Service REST*.
 
-Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE* y luego en *Predictive Web Service [Recommended]*
+Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer clic en el botón de `SET UP WEB SERVICE` y luego en `Predictive Web Service [Recommended]`.
 
 ![Preparar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/25-predictive-service.PNG?raw=true)
 
@@ -406,9 +406,9 @@ Esto nos generará una animación y creará una pestaña con el servicio web.
 
 >**Tip:** No te preocupes por hacer modificaciones en esta instancia.
 
-Deberás darle *Run* al servicio nuevamente, que es como si fuera "compilar" nuestra nueva API.
+Deberás darle `Run` al servicio nuevamente, que es como si fuera "compilar" nuestra nueva API.
 
-Finalmente, aparecerá el botón *DEPLOY WEB SERVICE* sobre el cual haremos click. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
+Finalmente, aparecerá el botón `DEPLOY WEB SERVICE` sobre el cual haremos clic. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
 
 ![Desplegar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/26-deploy-service.PNG?raw=true)
 
@@ -422,16 +422,16 @@ Una vez desplegado, verás la siguiente pantalla.
 
 Notarás que tienes dos formas de utilizarlo:
 
-- *Request/Response*: puedes generar la predicción para un único caso.
-- *Batch execution*: puedes realizar muchas predicciones con un mismo pedido a la API.
+- `Request/Response`: puedes generar la predicción para un único caso.
+- `Batch execution`: puedes realizar muchas predicciones con un mismo pedido a la API.
 
->**Tip:** Te recomiendo arrancar por *request/response* si es tu primera vez.
+>**Tip:** Te recomiendo arrancar por `request/response` si es tu primera vez.
 
 Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
 
 ![Probar el web service](https://github.com/marcelofelman/case-studies/blob/master/images/28-test-service.PNG?raw=true)
 
->**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar atos.
+>**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar datos.
 
 De esta manera, tu servicio web predictivo ya es visible para el mundo exterior. ¡Felicitaciones!
 
