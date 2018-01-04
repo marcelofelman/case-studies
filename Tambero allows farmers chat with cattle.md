@@ -55,24 +55,24 @@ Here's a real example from Tambero:
 
 > *I want to know the pregnancy status for Animal 52*
 
-The extracted intent is *GetPregnancyStatus*, an action name we previously defined; and *Animal 52* is an extacted entity as well.
+The extracted intent is `GetPregnancyStatus`, an action name we previously defined; and `Animal 52` is an extracted entity as well.
 
 Following this logic, we created many different intents and entities. A few intents:
 
-- *GetPregnancyStatus*: obtains pregnancy status for an animal.
-- *GetAverageWeight*: obtains average weight for a herd.
-- *GetPortionSize*: obtains food portion size for an animal.
+- `GetPregnancyStatus`: obtains pregnancy status for an animal.
+- `GetAverageWeight`: obtains average weight for a herd.
+- `GetPortionSize`: obtains food portion size for an animal.
 
 You could think of the above simply as the methods that your application supports.
 
 A few entities:
 
-- *AnimalNumber*
-- *HerdNumber*
+- `AnimalNumber`
+- `HerdNumber`
 
 You could think of the above simply as the parameters that the methods of your application supports.
 
-Finally, imagine that both the intent and the entity can translate the user's input into an API-friendly input, such as *GetPregnancyStatus(52)* or whatever you'd like it to be.
+Finally, imagine that both the intent and the entity can translate the user's input into an API-friendly input, such as `GetPregnancyStatus(52)` or whatever you'd like it to be.
 
 To train LUIS, you simply give it examples and tag the intents and entities accordingly. To learn better how to train LUIS, you can follow [this tutorial](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/add-intents).
 
