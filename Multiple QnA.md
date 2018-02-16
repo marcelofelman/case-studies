@@ -32,7 +32,7 @@ No te olvides de utilizar Newtonsoft
 using Newtonsoft.Json;
 ```
 
-También necesataremos una clase QnAMakerApp. Esta representa las credenciales necesarias para conectarnos a un QnA Maker.
+También necesitaremos una clase `QnAMakerApp`. Esta representa las credenciales necesarias para conectarnos a un QnA Maker.
 
 ```csharp
 private class QnAMakerApp
