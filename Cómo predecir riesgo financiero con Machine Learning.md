@@ -142,7 +142,7 @@ from
 t1;
 ```
 
-Aquí los links para conocer más sobre el módulo de [Python](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/execute-python-script) y [R](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/r-language-modules)az.
+Aquí los links para conocer más sobre el módulo de [Python](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/execute-python-script) y [R](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/r-language-modules).
 
 ### Normalización ###
 
@@ -166,8 +166,54 @@ El módulo *Filter Based Feature Selection* te permite medir [correlación](http
 
 Es importante considerar los siguientes aspectos:
 
-- Correlación no siempre implica causalidad. Por ejemplo, el consumo de helados está correlacionado con la cantidad de personas que mueren ahogadas (al aumentar una, aumenta la otra). Esto no significa que el helado cause muertes, sino que ambas se explican por una tercera variable, que es el verano (éste aumenta el consumo de helado y uso de piscinas). Esto se conoce como espuria estadística y debemos evitarlas.
+- Correlación no implica causalidad. Por ejemplo, el consumo de helados está correlacionado con la cantidad de personas que mueren ahogadas (al aumentar una, aumenta la otra). Esto no significa que el helado cause muertes, sino que ambas se explican por una tercera variable, que es el verano (éste aumenta el consumo de helado y uso de piscinas). Esto se conoce como espuria estadística y debemos evitarlas.
 
 - Debemos evitar valores duplicados. Ejemplo, si incluyo tanto la edad como la fecha de nacimiento, la estoy entregando al modelo dos veces el mismo valor y por tanto dándole más peso a un aspecto en particular.
 
 Para medir estas correlaciones, las dos herramientas fundamentales son *Correlación de Pearson* y *Mutual Information*. Te recomiendo también que veas más detalles en la [documentación oficial](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection).
+
+### Filtrar y elegir los features ###
+
+Si bien el módulo *Filter Based Feature Selection* te permite elegir cuántos de esos campos quieres conservar, también puedes descartarlos manualmente con el campo [Select Columns in Dataset](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/select-columns-in-dataset).
+
+### Datos de entrenamiento y datos de prueba ###
+
+Clasificación binaria utiliza una práctica llamada [Entrenamiento Supervisado](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Esto significa que dividiremos nuestro conjunto en dos partes: datos de entrenamiento y datos de prueba.
+
+Los datos de entrenamiento serán utilizados para crear nuestro modelo y ajustar sus parámetros. En cuanto a los datos de prueba, ignoraremos la respuesta conocida (si abandonó o no la secundaria) para probar el comportamiento de nuestro modelo. Luego, compararemos la respuesta real con nuestra predicción, y sabremos qué tan bien funciona nuestro modelo.
+
+Para realizar esto, utilizaremos el módulo `Split Data`
+
+![Split data](https://github.com/marcelofelman/case-studies/blob/master/images/8-split-data.PNG?raw=true)
+
+>**Tip:** Puedes agregar comentarios a los componentes, haciendo doble clic en la caja.
+
+Puedes ajustar qué cantidad de datos irán para cada salida, en la solapa de la derecha.
+
+>**Tip:** Utiliza más datos de entrenamiento que datos de prueba. Según la [distribución de Pareto](https://es.wikipedia.org/wiki/Distribución_de_Pareto), 80 para entrenamiento y 20 para pruebas es adecuado.
+
+### Estratificación ###
+
+Existen varias maneras de separar nuestros datos en dos subconjuntos. Aquí usaremos algo llamado `Stratified Split` para tratar de solucionar nuestro problema del *"dataset desbalanceado"* que vimos antes.
+
+Lo que hace el `Stratified Split` es asegurarse de que los dos subconjuntos tienen el mismo porcentaje de una variable que definamos como objetivo, y en este caso, elegiremos nuestra etiqueta *LABEL_DEFAULT*.
+
+Más info sobre [Split Data](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/split-data-using-split-rows).
+
+### Crear el modelo ###
+
+Tenemos nuestros datos de entrenamiento y de prueba, ahora para crear el modelo debes simplemente conectar la salida izquierda de `Split Data` (que son los datos de entrenamiento) con la entrada derecha del módulo `Train model` o `Entrenar modelo` en Español.
+
+La entrada izquierda de `Train model` debe conectarse con un algoritmo, en este caso utilizaré `Two-class Boosted Decision Tree`.
+
+![Entrenar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/9-train-model.PNG?raw=true)
+
+Seguro notes una cruz roja en el módulo `Train model`. Esto se debe a que debemos enseñarle al software cuál es el campo que buscamos predecir. En mi caso, quiero predecir el campo binario *LABEL_DEFAULT*.
+
+Usa el selector de columna a la derecha para elegir el campo.
+
+![Seleccionar columna](https://github.com/marcelofelman/case-studies/blob/master/images/10-column-selector.PNG?raw=true)
+
+En otros términos, estamos utilizando un algoritmo y datos de entrenamiento, para entrenar un modelo. Estamos casi listos.
+
+>**Tip:** En cualquier paso de la experimentación, puedes darle `Run` y visualizar la salida de cada componente con `clic derecho` > `Visualize`. En esta instancia, puedes visualizar las salidas izquierda y derecha de `Split Data` como también podrías ver la salida del modelo entrenado.
