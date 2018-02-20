@@ -76,39 +76,83 @@ Resumiendo, en el conjunto de datos tenemos más de 100 *features* (campos predi
 
 >**Tip:** Para exportar de SQL Server a `CSV`, se puede hacer con [estos pasos](https://github.com/marcelofelman/case-studies/blob/master/Desercion%20escolar%20con%20Machine%20Learning.md#preparación-de-los-datos).
 
-### Qué hay en nuestro conjunto de datos ###
+### Balance de la variable objetivo ###
 
 Ya hemos exportado nuestro *dataset*, ahora es una buena idea ir explorando el contenido del mismo.
 
 Lo primero que es importante visualizar, es el balance de nuestra variable objetivo, que hemos llamado *LABEL_DEFAULT* arbitrariamente. Podrás notar que sólo existen dos valores: uno o cero. El problema es que esto está fuertemente desbalanceado: hay cerca de un 98% de ceros mientras que 2% de unos. Veremos más adelante que hay varias opciones para solucionar esto.
 
+![Variable objetivo](https://github.com/marcelofelman/case-studies/blob/master/images/1-variable-objetivo.png?raw=true)
+
+### Valores extremos ###
+
+Otro punto que puede introducir ruido en nuestro modelo son los variables extremos. Para esto, la visualización ideal son los diagramas de caja o [boxplots](https://en.wikipedia.org/wiki/Box_plot).
+
+Con esta visualización puedes rápidamente ver qué valores extremos se encuentran. Por ejemplo, en el caso de abajo, hay una instancia que toma el valor de 274 cuando el promedio está bien cerca de 0. Algo resulta raro, veremos qué hacer con esto.
+
+![Outliers](https://github.com/marcelofelman/case-studies/blob/master/images/2-outliers.png?raw=true)
+
+### Valores faltantes ###
+
+*Null*, *missing*, etcétera. Asegúrate de remover o manejar todo eso.
+
+### Valores categóricos ###
+
+En el caso de valores categóricos, es buena idea chequear que no haya categorías adicionales o faltantes a raíz de un error de escritura. Por ejemplo, con un diagrama de frecuencias para la variable sexo puedo asegurarme que haya dos categorías, que son M o F.
+
+![Valores categóricos](https://github.com/marcelofelman/case-studies/blob/master/images/3-valores-categoricos.png?raw=true)
+
 ## Preparación de los datos ##
 
-El siguiente paso consiste en hacer un poco de limpieza inicial: remover datos que faltan, remover valores extremos o *outliers*, conversiones de moneda local a dólar, conversión de valores categóricos, y otra técnica conocida como normalización. Veamos cada uno de estos.
-
-### Remover datos que faltan ###
-
-aaa
+El siguiente paso consiste en hacer un poco de limpieza habiendo identificado los casso anteriores: remover datos que faltan, remover valores extremos o *outliers*, conversiones de moneda local a dólar, conversión de valores categóricos, y otra técnica conocida como normalización. Veamos cada uno de estos.
 
 ### Remover valores extremos o outliers ###
 
-aaa
+En AzureML Studio existe un módulo llamado [Clip Values](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/clip-values). El mismo te permite definir un umbral para un valor mínimo o máximo, y luego tomar una decisión sobre el mismo que puede ser removerlo o puede ser reemplazarlo.
+
+Para seleccionar el umbral, hay dos opciones: constante o percentil. El primer caso corresponde a un valor fijo, y todo valor absoluto que esté por debajo o por encima (según definamos) será tratado. El segundo caso, corresponde a un valor relativo. Más información sobre [percentiles](https://en.wikipedia.org/wiki/Percentile).
+
+Para reemplazar los valores, tengo algunas alternativas: el mismo valor de umbral, la media (promedio), la mediana, o un *null*.
+
+Veamos algunos ejemplos:
+
+- Si encuentro un registro de alguien con una edad mayor a 200 años, lo quiero marcar como *null* ya que asumo que está mal.
+- Aquellos con un límite de crédito por encima del percentil 98 quiero reemplazarlos por el valor del umbral.
+
+### Remover datos que faltan ###
+
+Aquí también existe un módulo que te permite remover valores faltantes, el mismo se llama [Clean Missing Data](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/clean-missing-data). El mismo puede trabajar por registro (fila) o por columna.
+
+Tienes varias alternativas: puedes directamente remover el registro/columna, o bien tienes varias opciones de sustitución de valores. Mira la [documentación](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/clean-missing-data) para más info.
 
 ### Conversiones de moneda local a dólar ###
 
-aaa
+A veces es necesario realizar conversiones más personalizadas, y para ello tengo algunas opciones:
 
-### Conversión de valores categóricos ###
+- Python
+- R
+- SQL
 
-aaa
+Mi preferencia personal es utilizar SQL, y para eso utilizo el módulo [Apply SQL Transformation](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/apply-sql-transformation). De esta forma con una sintaxis bien simple puedo generar la multiplicación por el tipo de cambio para dolarizar.
+
+```sql
+SELECT   
+*   
+from   
+t1;
+```
+
+Aquí los links para conocer más sobre el módulo de [Python](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/execute-python-script) y [R](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/r-language-modules)az.
 
 ### Normalización ###
 
-aaa
+La técnica de normalización permite cambiar valores numéricos para utilizar una escala común a todos. Imagínate la siguiente situación: tienes una variable con valores entre 0 y 1 (ejemplo: "índice de riesgo"), y por otro lado tienes otra que varía entre 1000 y 15000 (ejemplo: límite de crédito). Para evitar problemas que puedan presentarse en la creación de modelos, usamos una escala común para todos.
+
+El módulo [Normalization](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/normalize-data) te permite llevar un conjunto de variables numéricas a un rango entre 0 y 1. Es muy simple y efectivo.
 
 ## Creación de modelos ##
 
-Ahora empezaremos a crear nuestros modelos predictivos.
+Ahora que tenemos una mejor noción de la preparación y limpieza, empezaremos a crear nuestros modelos predictivos. Recuerda que esto es un proceso iterativo.
 
 Para resolver este problema, existen diferentes algoritmos. Recuerda que los diferentes algoritmos son simplemente distintas formas de abordar un resultado. Algunos llegan a mejores resultados, pero esto no está garantizado. Si quieres ver el listado y ventajas de cada uno de los algoritmos, lo puedes ver [aquí](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice). Yo empezaré utilizando un *Two-class Boosted Decision Tree*, el cual es balanceado en cuanto a consumo de recursos y exactitud en sus resultados.
 
@@ -116,4 +160,14 @@ Para resolver este problema, existen diferentes algoritmos. Recuerda que los dif
 
 ### Pruebas de correlación ###
 
-Una buena manera de identificar qué campos pueden o no ser buenos predictores es realizando pruebas de correlación.
+Una buena manera de identificar qué campos pueden o no ser buenos predictores es realizando pruebas de correlación. La manera más simple de probar correlación con AzureML Studio es a través del módulo [Filter Based Feature Selection](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection).
+
+El módulo *Filter Based Feature Selection* te permite medir [correlación](https://en.wikipedia.org/wiki/Correlation_and_dependence) entre las distintas variables y la variable objetivo. De esta manera, podemos identificar campos irrelevantes en nuestro estudio.
+
+Es importante considerar los siguientes aspectos:
+
+- Correlación no siempre implica causalidad. Por ejemplo, el consumo de helados está correlacionado con la cantidad de personas que mueren ahogadas (al aumentar una, aumenta la otra). Esto no significa que el helado cause muertes, sino que ambas se explican por una tercera variable, que es el verano (éste aumenta el consumo de helado y uso de piscinas). Esto se conoce como espuria estadística y debemos evitarlas.
+
+- Debemos evitar valores duplicados. Ejemplo, si incluyo tanto la edad como la fecha de nacimiento, la estoy entregando al modelo dos veces el mismo valor y por tanto dándole más peso a un aspecto en particular.
+
+Para medir estas correlaciones, las dos herramientas fundamentales son *Correlación de Pearson* y *Mutual Information*. Te recomiendo también que veas más detalles en la [documentación oficial](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection).
