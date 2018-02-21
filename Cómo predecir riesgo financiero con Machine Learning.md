@@ -1,8 +1,10 @@
 # Cómo predecir riesgo financiero con Machine Learning #
 
-En este caso de estudio, me gustaría contarte cómo hicimos para identificar tempranamente clientes de una entidad financiera -específicamente tarjetahabientes- que ingresen en una situación de [default](https://en.wikipedia.org/wiki/Default_(finance)) utilizando técnicas de Machine Learning.
+En este caso de estudio, nos gustaría contarte cómo hicimos para identificar tempranamente clientes de una entidad financiera -específicamente tarjetahabientes- que ingresen en una situación de [default](https://en.wikipedia.org/wiki/Default_(finance)) utilizando técnicas de Machine Learning.
 
 Puedes usar este caso como una guía para crear tu propio modelo, o simplemente leerlo para conocer la lógica y secuencia de pasos que seguimos para llegar a nuestro resultado.
+
+**Los datos que mostramos en esta guía están obfuscados y modificados por razones de privacidad.**
 
 ## Resumen ##
 
@@ -18,7 +20,7 @@ A través de las herramientas [Azure Machine Learning](https://azure.microsoft.c
 
 Previo a comenzar el proyecto, definimos algunos puntos a considerar:
 
-- Partir "desde cero" con el modelo, ignorando todo conocimiento previo para no sesgar el estudio con resultados anteriores.
+- Partir "desde cero", ignorando todo conocimiento previo para no sesgar el estudio con resultados anteriores.
 - Utilizar datos de tarjetahabientes de un único país.
 - Utilizar técnicas de Machine Learning en primera instancia, dejando Deep Learning para una siguiente fase.
 - Utilizar herramientas visuales priorizando -en esta instancia- agilidad sobre flexibilidad.
@@ -94,11 +96,11 @@ Con esta visualización puedes rápidamente ver qué valores extremos se encuent
 
 ### Valores faltantes ###
 
-*Null*, *missing*, etcétera. Asegúrate de remover o manejar todo eso.
+`NULL`, `Missing`, etcétera. Asegúrate de remover o manejar todo eso.
 
 ### Valores categóricos ###
 
-En el caso de valores categóricos, es buena idea chequear que no haya categorías adicionales o faltantes a raíz de un error de escritura. Por ejemplo, con un diagrama de frecuencias para la variable sexo puedo asegurarme que haya dos categorías, que son M o F.
+En el caso de valores categóricos, es buena idea chequear que no haya categorías adicionales o faltantes a raíz de un error de escritura. Por ejemplo, con un diagrama de frecuencias para la variable sexo puedo asegurarme que haya dos categorías, que son `M` o `F`.
 
 ![Valores categóricos](https://github.com/marcelofelman/case-studies/blob/master/images/3-valores-categoricos.png?raw=true)
 
@@ -112,7 +114,7 @@ En AzureML Studio existe un módulo llamado [Clip Values](https://docs.microsoft
 
 Para seleccionar el umbral, hay dos opciones: constante o percentil. El primer caso corresponde a un valor fijo, y todo valor absoluto que esté por debajo o por encima (según definamos) será tratado. El segundo caso, corresponde a un valor relativo. Más información sobre [percentiles](https://en.wikipedia.org/wiki/Percentile).
 
-Para reemplazar los valores, tengo algunas alternativas: el mismo valor de umbral, la media (promedio), la mediana, o un *null*.
+Para reemplazar los valores, tengo algunas alternativas: el mismo valor de umbral, la media (promedio), la mediana, o un `NULL`.
 
 Veamos algunos ejemplos:
 
@@ -129,16 +131,16 @@ Tienes varias alternativas: puedes directamente remover el registro/columna, o b
 
 A veces es necesario realizar conversiones más personalizadas, y para ello tengo algunas opciones:
 
-- Python
-- R
-- SQL
+- `Python`
+- `R`
+- `SQL`
 
 Mi preferencia personal es utilizar SQL, y para eso utilizo el módulo [Apply SQL Transformation](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/apply-sql-transformation). De esta forma con una sintaxis bien simple puedo generar la multiplicación por el tipo de cambio para dolarizar.
 
 ```sql
-SELECT   
-*   
-from   
+SELECT
+*
+from
 t1;
 ```
 
@@ -162,19 +164,19 @@ Para resolver este problema, existen diferentes algoritmos. Recuerda que los dif
 
 Una buena manera de identificar qué campos pueden o no ser buenos predictores es realizando pruebas de correlación. La manera más simple de probar correlación con AzureML Studio es a través del módulo [Filter Based Feature Selection](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection).
 
-El módulo *Filter Based Feature Selection* te permite medir [correlación](https://en.wikipedia.org/wiki/Correlation_and_dependence) entre las distintas variables y la variable objetivo. De esta manera, podemos identificar campos irrelevantes en nuestro estudio.
+El módulo `Filter Based Feature Selection` te permite medir [correlación](https://en.wikipedia.org/wiki/Correlation_and_dependence) entre las distintas variables y la variable objetivo. De esta manera, podemos identificar campos irrelevantes en nuestro estudio.
 
 Es importante considerar los siguientes aspectos:
 
-- Correlación no implica causalidad. Por ejemplo, el consumo de helados está correlacionado con la cantidad de personas que mueren ahogadas (al aumentar una, aumenta la otra). Esto no significa que el helado cause muertes, sino que ambas se explican por una tercera variable, que es el verano (éste aumenta el consumo de helado y uso de piscinas). Esto se conoce como espuria estadística y debemos evitarlas.
+- **Correlación no implica causalidad**. Por ejemplo, el consumo de helados está correlacionado con la cantidad de personas que mueren ahogadas (al aumentar una, aumenta la otra). Esto no significa que el helado cause muertes, sino que ambas se explican por una tercera variable, que es el verano (éste aumenta el consumo de helado y uso de piscinas). Esto se conoce como espuria estadística y debemos evitarlas.
 
-- Debemos evitar valores duplicados. Ejemplo, si incluyo tanto la edad como la fecha de nacimiento, la estoy entregando al modelo dos veces el mismo valor y por tanto dándole más peso a un aspecto en particular.
+- **Evitar variables derivadas**. Ejemplo, si incluyo tanto la edad como la fecha de nacimiento, la estoy entregando al modelo dos veces el mismo valor y por tanto dándole más peso a un aspecto en particular.
 
 Para medir estas correlaciones, las dos herramientas fundamentales son *Correlación de Pearson* y *Mutual Information*. Te recomiendo también que veas más detalles en la [documentación oficial](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection).
 
 ### Filtrar y elegir los features ###
 
-Si bien el módulo *Filter Based Feature Selection* te permite elegir cuántos de esos campos quieres conservar, también puedes descartarlos manualmente con el campo [Select Columns in Dataset](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/select-columns-in-dataset).
+Si bien el módulo `Filter Based Feature Selection` te permite elegir cuántos de esos campos quieres conservar, también puedes descartarlos manualmente con el campo [Select Columns in Dataset](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/select-columns-in-dataset).
 
 ### Datos de entrenamiento y datos de prueba ###
 
@@ -217,3 +219,125 @@ Usa el selector de columna a la derecha para elegir el campo.
 En otros términos, estamos utilizando un algoritmo y datos de entrenamiento, para entrenar un modelo. Estamos casi listos.
 
 >**Tip:** En cualquier paso de la experimentación, puedes darle `Run` y visualizar la salida de cada componente con `clic derecho` > `Visualize`. En esta instancia, puedes visualizar las salidas izquierda y derecha de `Split Data` como también podrías ver la salida del modelo entrenado.
+
+### Realizar las predicciones ###
+
+Estamos en condiciones de probar nuestro modelo. Para ello, debemos utilizar el componente `Score model`. Aquí es donde entran en juego los datos de prueba, los cuales (salida derecha de `Split data`) conectaremos a la entrada derecha de `Score model`.
+
+![Score model](https://github.com/marcelofelman/case-studies/blob/master/images/11-score-model.PNG?raw=true)
+
+Puedes darle `Run` y luego visualizar el resultado (su salida). Este componente genera las predicciones y agrega dos nuevas columnas:
+
+- `Scored label`: indica la categoría que predice nuestro modelo. En este caso será '1' o '0'.
+- `Scored probabilities`: indica la probabilidad que tenía de tomar la etiqueta positiva.
+
+Por ejemplo, si un caso nos dio de `Scored label` 'SI' y `Scored probabilities` 0,70 entonces el modelo dice que con un 70% de confianza, esa persona entrará en una situación de *default*.
+
+![Valores categorizados](https://github.com/marcelofelman/case-studies/blob/master/images/12-scored-model.PNG?raw=true)
+
+### Evaluar el comportamiento del modelo ###
+
+En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos eso como un todo. Para ello, utilizaremos el módulo `Evaluate model` el cual toma como entrada la salida de `Score model`.
+
+![Evaluar modelo](https://github.com/marcelofelman/case-studies/blob/master/images/13-evaluate-model.PNG?raw=true)
+
+Si damos `Run` visualizamos la salida de `Evaluate model`, podremos ver la siguiente gráfica:
+
+![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/14-auc.PNG?raw=true)
+
+Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (`Area under the curve` o también `AUC`) debe ser lo mayor posible: no queremos dejar casos afuera.
+
+A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **????%** de las veces está realizando una predicción correcta.
+
+No obstante, si nos movemos hacia abajo veremos más métricas que definen el comportamiento de nuestro modelo predictivo.
+
+![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/15-more-metrics.PNG?raw=true)
+
+Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
+
+- Clientes que dijimos que entraban en *default*, y entraron (verdadero positivo): A
+- Clientes que dijimos que NO entraban en *default*, y entraron (falso negativo): B
+- Clientes que dijimos que entraban en *default*, y NO entraron (falso positivo): C
+- Clientes que dijimos que NO entraban en *default*, y NO entraron (verdadero negativo): D
+
+Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es ...
+
+Como podemos ver arriba, estamos identificando a XXX clientes, pero "dejando pasar" a unos XXX. Debemos mejorar nuestro modelo.
+
+## Mejorar el modelo ##
+
+El proceso de mejora suele ser un proceso iterativo. En esta línea, existen diferentes caminos para tomar a la hora de mejorar un modelo.
+
+**Para ver ideas sobre iteraciones de mejora, te recomiendo ver la sección de Mejoras en el caso de [Deserción Escolar con Machine Learning](https://github.com/marcelofelman/case-studies/blob/master/Desercion%20escolar%20con%20Machine%20Learning.md#iteraciones-de-mejora)**
+
+Algunas de estas ideas son:
+
+- Utilizar menos variables
+- Utilizar más variables
+- Utilizar otras variables
+- Balancear el conjunto de datos
+- Modificar los parámetros del algoritmo
+- Utilizar cross-validation
+- Medir el éxito de otra manera
+- Utilizar otros algoritmos
+- Encarar el problema de otra manera
+
+>**Tip:** Si estás trabajando en equipo te recomiendo conocer el [Team Data Science Process](https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/overview).
+
+## Visualización ##
+
+Analizar la demografía de los datos suele aportar *insights* acerca del dominio de la información y del propio modelo. Ya sea con datos reales empleados para consumir el experimento publicado o con los datos de muestra en la etapa de experimentación, estos registros pueden ser expuestos a una herramienta de visualización.
+
+En esta sección describiremos algunas alternativas para obtener registros con el *label* predictivo de `Azure Machine Learning Studio` y algunos tips para la visualización de datos el dominio financiero.
+
+### Exportar datos ###
+
+#### Desde el experimento ####
+
+La manera más sencilla de exportar datos desde `AMLS` es convirtiendo un dataset al formato `CSV`. Existe una tarea `Convert to CSV` para ello que recibe un dataset como input y permite descargar el output en dicho formato.
+
+El módulo `Convert to CSV` debe recibir datos del modelo entrenado (luego de haberse ejecutado `Train Model` para contener el label predictor, pero también será necesario incluir todos los *features* que querramos visualizar antes de ser normalizados ya que no sólo la distribución es importante, sino también los valores reales que fueron input del experimento. Para ello es imperioso haber conservado un identificador del registro ("número de cuenta" en nuestro caso) para poder hacer un `Join Data` con el *dataset* original. Finalmente conectar la salida de `Join Data` con `Convert to CSV`.
+
+#### Desde el modelo (trained model) ####
+
+Hay múltiples maneras de consumir el modelo entrenado, ya sea mediante una aplicación que invoque la API del modelo, a través de un [app template en Azure](https://docs.microsoft.com/en-us/azure/machine-learning/studio/consume-web-service-with-web-app-template) o directamente desde Microsoft Excel, empleando el add-in de Azure Machine Learning.
+
+![Descarga de add-in para ejecución por lotes](https://github.com/dgregoraz/case-studies/blob/master/images/ml-1/batch-execution.png?raw=true)
+
+En cualquiera de estos casos se puede analizar un lote de registros, incorporar el label predictivo y exportar los registros para ser visualizados en Power BI.
+
+### Representación de resultados ###
+
+Los buenos modelos predictivos suelen ser simples. La cantidad de features o predictores son acotados por lo que todos ellos pueden ser representados en un reporte o dashboard.
+
+La representación descriptiva de los predictores y otras variables con la opción de filtrar la predicción (default/no default) ayuda a comprender la distribución de cada una de esos atributos.
+
+El siguiente ejemplo muestra la distribución de edad de los clientes y, con la saturación de color, resalta la deuda adquirida.
+
+![Ejemplo de distribución etaria de los clientes y deuda acumulada](https://github.com/dgregoraz/case-studies/blob/master/images/ml-1/age-distribution.png?raw=true)
+
+Se puede ver tanto cómo el rango etario de los clientes está concentrado entre los 30 y 50 años mayormente pero que los que mayor deuda acumulan están, a su vez, sesgados hacia el rango de 30-40.
+
+En etapa de experimentación también es útil analizar visualmente posibles nuevos predictores. El siguiente ejemplo muestra un *boxplot* con la misma distribución etaria de una muestra de datos en función de su historial de pagos.
+
+![Distribución etaria según label predictivo](https://github.com/dgregoraz/case-studies/blob/master/images/ml-1/predictive-boxplot.png?raw=true)
+
+Como puede observarse, casi no hay solapamiento en la distribución etaria para esta porción de la población por lo que la edad tiene una contribución considerable en el comportamiento de pago.
+
+De la misma manera que el ejemplo anterior, para un problema de clasificación como el que se describe en este caso es particularmente útil analizar los falsos negativos y falsos positivos para procurar encontrar algún patrón de correlación que pueda indicar la existencia de un nuevo predictor que mejore el modelo.
+
+## Conclusiones ##
+
+Machine Learning es todo un mundo diferente, y puede resultar complejo para quienes venimos del ámbito de desarrollo de software.
+
+A través de un proceso iterativo de prueba y error, podemos ir acercándonos a una respuesta correcta y finalmente determinar si nuestro modelo es se comporta como esperamos o no.
+
+En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 98% de los clientes que ingresaran en un *default*. Estos resultados son similares a los obtenidos por otros investigadores, grupos y competencias.
+
+## Equipo ##
+
+Diego Gregoraz - [Twitter](https://twitter.com/dgregoraz) - [GitHub](https://github.com/dgregoraz)
+
+Jorge Cupi - [Twitter](https://twitter.com/jorgecupi) - [GitHub](https://github.com/jorgecupi)
+
+Marcelo Felman - [Twitter](https://twitter.com/mfelman) - [GitHub](https://github.com/marcelofelman)
