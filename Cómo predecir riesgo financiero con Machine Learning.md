@@ -22,7 +22,7 @@ Previo a comenzar el proyecto, definimos algunos puntos a considerar:
 
 - Partir "desde cero", ignorando todo conocimiento previo para no sesgar el estudio con resultados anteriores.
 - Utilizar datos de tarjetahabientes de un único país.
-- Utilizar técnicas de Machine Learning en primera instancia, dejando Deep Learning para una siguiente fase.
+- Utilizar técnicas de *Machine Learning* en primera instancia, dejando [Deep Learning](https://en.wikipedia.org/wiki/Deep_learning) para una siguiente fase.
 - Utilizar herramientas visuales priorizando -en esta instancia- agilidad sobre flexibilidad.
 
 La duración del proyecto fue de tres semanas, en las cuales iniciamos desde la exploración del dominio hasta la publicación de un reporte interactivo sobre los resultados.
@@ -38,7 +38,7 @@ La duración del proyecto fue de tres semanas, en las cuales iniciamos desde la 
 - [Preparación de los datos](#preparación-de-los-datos)
 - [Creación de modelos](#creación-de-modelos)
 - [Iteraciones de mejora](#iteraciones-de-mejora)
-- [Reporting](#reporting)
+- [Visualización](#visualización)
 
 ## Exploración del dominio ##
 
@@ -118,7 +118,7 @@ Para reemplazar los valores, tengo algunas alternativas: el mismo valor de umbra
 
 Veamos algunos ejemplos:
 
-- Si encuentro un registro de alguien con una edad mayor a 200 años, lo quiero marcar como *null* ya que asumo que está mal.
+- Si encuentro un registro de alguien con una edad mayor a 200 años, lo quiero marcar como `NULL` ya que asumo que está mal.
 - Aquellos con un límite de crédito por encima del percentil 98 quiero reemplazarlos por el valor del umbral.
 
 ### Remover datos que faltan ###
@@ -198,7 +198,7 @@ Puedes ajustar qué cantidad de datos irán para cada salida, en la solapa de la
 
 Existen varias maneras de separar nuestros datos en dos subconjuntos. Aquí usaremos algo llamado `Stratified Split` para tratar de solucionar nuestro problema del *"dataset desbalanceado"* que vimos antes.
 
-Lo que hace el `Stratified Split` es asegurarse de que los dos subconjuntos tienen el mismo porcentaje de una variable que definamos como objetivo, y en este caso, elegiremos nuestra etiqueta *LABEL_DEFAULT*.
+Lo que hace el `Stratified Split` es asegurarse de que los dos subconjuntos tienen el mismo porcentaje de una variable que definamos como objetivo, y en este caso, elegiremos nuestra etiqueta *LABEL_DEFAULT* (o *AbandonoEstudios* o cualquiera que sea tu objetivo predictivo).
 
 Más info sobre [Split Data](https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/split-data-using-split-rows).
 
@@ -243,26 +243,28 @@ En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos es
 
 Si damos `Run` visualizamos la salida de `Evaluate model`, podremos ver la siguiente gráfica:
 
-![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/14-auc.PNG?raw=true)
+![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/resultados-default.PNG?raw=true)
 
 Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (`Area under the curve` o también `AUC`) debe ser lo mayor posible: no queremos dejar casos afuera.
 
-A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **????%** de las veces está realizando una predicción correcta.
+A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el **99.5%%** de las veces está realizando una predicción correcta. Esto es simple de lograr, ya que el conjunto de datos está fuertemente desbalanceado.
 
 No obstante, si nos movemos hacia abajo veremos más métricas que definen el comportamiento de nuestro modelo predictivo.
 
-![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/15-more-metrics.PNG?raw=true)
+![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/confusion-default.PNG?raw=true)
 
 Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
 
-- Clientes que dijimos que entraban en *default*, y entraron (verdadero positivo): A
-- Clientes que dijimos que NO entraban en *default*, y entraron (falso negativo): B
-- Clientes que dijimos que entraban en *default*, y NO entraron (falso positivo): C
-- Clientes que dijimos que NO entraban en *default*, y NO entraron (verdadero negativo): D
+- Clientes que dijimos que entraban en *default*, y entraron (verdadero positivo): 308
+- Clientes que dijimos que NO entraban en *default*, y entraron (falso negativo): 74
+- Clientes que dijimos que entraban en *default*, y NO entraron (falso positivo): 56
+- Clientes que dijimos que NO entraban en *default*, y NO entraron (verdadero negativo): 23527
 
-Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es ...
+Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, ¿es peor "dejar pasar" algún cliente o es peor subestimar a un mal pagador? Eso es una decisión de negocio, y cada negocio es diferente.
 
-Como podemos ver arriba, estamos identificando a XXX clientes, pero "dejando pasar" a unos XXX. Debemos mejorar nuestro modelo.
+Como podemos ver arriba, estamos identificando a 308 clientes, pero "dejando pasar" a unos 74. Debemos mejorar nuestro modelo.
+
+>**Tip:** El [recall](https://en.wikipedia.org/wiki/Precision_and_recall) en este escenario es clave. Evalúa el link para conocer más.
 
 ## Mejorar el modelo ##
 
@@ -332,7 +334,7 @@ Machine Learning es todo un mundo diferente, y puede resultar complejo para quie
 
 A través de un proceso iterativo de prueba y error, podemos ir acercándonos a una respuesta correcta y finalmente determinar si nuestro modelo es se comporta como esperamos o no.
 
-En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 98% de los clientes que ingresaran en un *default*. Estos resultados son similares a los obtenidos por otros investigadores, grupos y competencias.
+En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 99% de los clientes que ingresaran en un *default*. Estos resultados son similares a los obtenidos por otros investigadores, grupos y competencias.
 
 ## Equipo ##
 
