@@ -243,7 +243,7 @@ En el paso anterior hicimos predicciones caso por caso, ahora interpretaremos es
 
 Si damos `Run` visualizamos la salida de `Evaluate model`, podremos ver la siguiente gráfica:
 
-![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/resultados-default.PNG?raw=true)
+![Comportamiento](https://github.com/marcelofelman/case-studies/blob/master/images/resultados-default.png?raw=true)
 
 Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (`Area under the curve` o también `AUC`) debe ser lo mayor posible: no queremos dejar casos afuera.
 
@@ -251,7 +251,7 @@ A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el
 
 No obstante, si nos movemos hacia abajo veremos más métricas que definen el comportamiento de nuestro modelo predictivo.
 
-![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/confusion-default.PNG?raw=true)
+![Más métricas](https://github.com/marcelofelman/case-studies/blob/master/images/confusion-default.png?raw=true)
 
 Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
 
