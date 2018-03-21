@@ -1,6 +1,7 @@
-# Proyect
-## Descripción del cliente/partner
-> Si el cliente/partner no quiere hacerlo público, solo puede ser una descripción del sector.
+# Cómo mejorar un sisema de transcripción de discurso a texto con AI
+## Introducción
+Una opción para convertir audio a texto, es a través de los [Servicios Cognitivos de Microsoft](https://azure.microsoft.com/es-mx/services/cognitive-services/). 
+
 ## Technical Challenge
 > ¿Por qué buscaron el apoyo de CSE?
 ## Miembros del equipo
