@@ -8,7 +8,12 @@ El reto principal en este escenario, era adaptar un modelo que pudiera reconocer
 * Ruido de fondo de llamadas telefónicas, tanto de los operadores del banco, como de los clientes.
 * Voces encimadas
 ## Miembros del equipo
-## Alcance/Objetivos
+* [Marcelo Felman] (https://github.com/marcelofelman/)
+* Diego Gregoraz
+* [Vianey Juarez] (https://github.com/vianeysitaa)
+## Objetivos
+* Generar un modelo de lenguaje acústico con palabras y términos sobre el escenario
+* Probar las funcionalidades y exactitud de [CRIS.ai](http://cris.ai) para el idioma español
 ## Tecnologías utilizadas
 
 - [Custom Speech Service (CRIS)](https://cris.ai/) adaptado con [Custom Models](https://azure.microsoft.com/en-us/services/cognitive-services/custom-speech-service/)
