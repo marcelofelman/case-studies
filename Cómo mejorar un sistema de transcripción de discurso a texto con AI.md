@@ -1,9 +1,12 @@
 # Cómo mejorar un sisema de transcripción de discurso a texto con AI
 ## Introducción
 Una opción para convertir audio a texto, es a través de los [Servicios Cognitivos de Microsoft](https://azure.microsoft.com/es-mx/services/cognitive-services/). 
-
+En algunos escenarios, nos podemos encontrar que el servicio de [Bing Speech API](https://azure.microsoft.com/es-mx/services/cognitive-services/speech/) no reconoce algunas de nuestras palabras, y no tenemos manera de retroalimentar sobre la transcripción obtenida.
+Esta es la razón por la que decidimos utilizar el servicio [Custom Speech Service](https://azure.microsoft.com/es-mx/services/cognitive-services/custom-speech-service/) ya que nos permite personalizar modelos de lenguaje.
 ## Technical Challenge
-> ¿Por qué buscaron el apoyo de CSE?
+El reto principal en este escenario, era adaptar un modelo que pudiera reconocer el idioma español con acento de Uruguay, y reconocer palabras específicas del sector financiero con audios tomados de llamadas de un centro telefónico, pero encontramos más retos durante la ejecución:
+* Ruido de fondo de llamadas telefónicas, tanto de los operadores del banco, como de los clientes.
+* Voces encimadas
 ## Miembros del equipo
 ## Alcance/Objetivos
 ## Tecnologías utilizadas
