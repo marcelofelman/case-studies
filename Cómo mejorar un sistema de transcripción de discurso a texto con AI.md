@@ -10,7 +10,7 @@ Esta es la razón por la que decidimos personalizar el servicio [Custom Speech S
 
 ## Desafíos técnicos
 
-El reto principal en este escenari es adaptar un modelo que pudiera reconocer el idioma español con acento de Uruguay, y reconocer palabras específicas del sector financiero (en este caso) con audios tomados de llamadas de un centro telefónico, pero encontramos más retos durante la ejecución:
+El reto principal en este escenario es adaptar un modelo que pudiera reconocer el idioma español con acento de Uruguay, y reconocer palabras específicas del sector financiero (en este caso) con audios tomados de llamadas de un centro telefónico; aunque encontramos más retos durante la ejecución:
 
 * Ruido de fondo de llamadas telefónicas, tanto de los operadores del banco, como de los clientes.
 * Voces encimadas.
@@ -24,11 +24,11 @@ El reto principal en este escenari es adaptar un modelo que pudiera reconocer el
 
 ## Tecnologías utilizadas
 
-- [Custom Speech Service (CRIS)](https://cris.ai/) adaptado con [Custom Models](https://azure.microsoft.com/en-us/services/cognitive-services/custom-speech-service/)
-- [Audio Converter for Custom Acoustic Model](https://github.com/vianeyja/AudioConverter)
-- [Service Bus Queues](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues)
-- [Visual Studio 2017](http://www.visualstudio.com/vs)
-- Una subscripción de Azure
+* [Custom Speech Service (CRIS)](https://cris.ai/) adaptado con [Language Models](https://azure.microsoft.com/en-us/services/cognitive-services/custom-speech-service/)
+* [Audio Converter for Custom Acoustic Model](https://github.com/vianeyja/AudioConverter)
+* [Service Bus Queues](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues)
+* [Visual Studio 2017](http://www.visualstudio.com/vs)
+* Microsoft Azure
 
 ## Arquitectura de la solución
 
