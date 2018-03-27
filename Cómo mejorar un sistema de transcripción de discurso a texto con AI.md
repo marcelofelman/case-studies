@@ -98,13 +98,23 @@ Dado que estas reglas se ejecutan, dependiendo del estado de la cola, en near-re
 
 Finalmente el archivo de audio dual-channel, la transcripción sincronizada y los insights generados por las reglas son persistidos en un data warehouse.
 
-## Hallazgos
+## Entrenar el modelo de Custom Speech
+
+### Language Model
+
+Completar
+
+### Acoustic Model
+
+Completar
+
+### Publicar y probar el modelo
+
+Completar
+
+## Hallazgos y resultados
 
 > Pueden ser hallazgos como el caso de globo studio en el que se simplificó el modelo, etc.
-
-## Conceptos clave
-
-> Un listado de pasos o configuraciones que sean importantes para el cliente/parter recordar
 
 ## Miembros del equipo
 
