@@ -32,7 +32,7 @@ El reto principal en este escenario es adaptar un modelo que pudiera reconocer e
 
 ## Arquitectura de la solución
 
-El siguiente diagrama muestra los principales elementos que intervienen en la arquitectura propuesta para este proyecto.
+El siguiente diagrama muestra los principales elementos que intervienen en la arquitectura de este proyecto.
 
 ![Arquitectura general](https://github.com/dgregoraz/case-studies/blob/master/images/cs-1/architecture.png?raw=true)
 
@@ -42,35 +42,35 @@ El CRM provee información básica sobre el audio, tanto del gestor como del cli
 
 Habitualmente cierta información demográfica del cliente es validada en la conversación por lo que expresiones como el nombre, el documento o cédula, fecha de nacimiento, etc. podrían ser auditadas o corregidas en la transcripción.
 
->Desafortunadamente entrenar un Custom Language previo a cada llamada para mejorar el accuracy de la transcripción no es viable por razones pragmáticas de implementación.
+>Desafortunadamente entrenar un Custom Language previo a cada llamada para mejorar la exactitud de la transcripción no es viable por razones pragmáticas de implementación.
 
 ### PBX
 
-La central telefónica provee dos archivos con la conversación, uno por cada canal, inbound y outbound. Los archivos se generan en formato .mp3, Mono, a 11025 Hz, 16 bits, PCM.
+La central telefónica provee dos archivos con la conversación, uno por cada canal, *inbound* y *outbound*. Los archivos se generan en formato .mp3, Mono, a 11025 Hz, 16 bits, PCM.
 
 ### Message Broker
 
-La mejor solución para este escenario es dejar que las aplicaciones envíen y reciban mensajes a través de una cola unidireccional. En un principio casi todas las acciones son ejecutadas sobre todos los mensajes. Si este escenario cambia, eventualmente podría implementarse un broker con un mecanismo de subscripción basado en la metadata provista por el CRM para diferenciar los diferentes procesamientos que se ejecutan sobre los mensajes en el pipeline.
+Una de las soluciones para este escenario es dejar que las aplicaciones envíen y reciban mensajes a través de una cola unidireccional. En un principio, casi todas las acciones son ejecutadas sobre todos los mensajes. Si este escenario cambia, eventualmente podría implementarse un *broker* con un mecanismo de subscripción basado en la metadata provista por el CRM para diferenciar los diferentes procesamientos que se ejecutan sobre los mensajes en el *pipeline*.
 
-Dado que el análisis de los audios es una operación asincrónica, el Message Broker también cumple la función de buffer para manejar los picos de carga durante los horarios de mayor cantidad de llamadas.
+Dado que el análisis de los audios es una operación asincrónica, el *Message Broker* también cumple la función de buffer para manejar los picos de carga durante los horarios de mayor cantidad de llamadas.
 
-Todos los sistemas que interactúan con la cola son receivers and senders, excepto la central telefónica que es sólo sender. Como receivers los sistemas están aguardando un mensaje, lo leen, realizan alguna operación y, como sender, lo devuelven a la cola para que continue su flujo. A continuación se describen cada uno de los sistemas o componentes que intervienen en el proceso de transcripción.
+Todos los sistemas que interactúan con la cola son *receivers* y *senders*, excepto la central telefónica que es sólo sender. Como receivers los sistemas están aguardando un mensaje, lo leen, realizan alguna operación y, como sender, lo devuelven a la cola para que continue su flujo. A continuación se describen cada uno de los sistemas o componentes que intervienen en el proceso de transcripción.
 
 ### Pre-processing
 
 La primera acción a realizar en los audios es la adaptación y mejoramiento para aumentar la precisión de su transcripción.  Este pre-procesamiento implica:
 
-- Convertir el formato de los audios de mp3 a wav y llevar su frecuencia a 16 kHz.
-- Aplicar filtros de reducción de ruido.
-- Normalizar el audio (se lleva al máximo el pico de amplitud de los tracks).
-- Se agregan unos 100 milisegundos de silencio al principio y al final del audio.
-- Otras mejoras de ecualización y aplicación de efectos.
+* Convertir el formato de los audios de mp3 a wav y llevar su frecuencia a 16 kHz.
+* Aplicar filtros de reducción de ruido.
+* Normalizar el audio (se lleva al máximo el pico de amplitud de los tracks).
+* Se agregan unos 100 milisegundos de silencio al principio y al final del audio.
+* Otras mejoras de ecualización y aplicación de efectos.
 
 El preprosesamiento se realiza con los audios separados por canales, lo cual resulta mucho más eficiente que hacerlos en dual-channel (stereo).
 
 ### Transcription
 
-Esta aplicación fragmenta los audios e invoca al servicio CRIS a través del endpoint desplegado con el Custom Model preparado para este propósito.
+Esta aplicación fragmenta los audios e invoca al servicio CRIS a través del endpoint desplegado con el *Custom Model* preparado para este propósito.
 
 Esta operación añade a cada audio el texto relacionado de su transcripción en pequeños fragmentos que provee CRIS. Estos fragmentos o párrafos contienen metadata sobre su duración, offset y nivel de confianza.
 
@@ -88,11 +88,11 @@ Por razones de auditoría los audios deben conservarse en dual-channel por lo qu
 
 Estas reglas pueden aplicarse todas juntas o concebirse como agentes independientes de la cola. Cada regla analiza el mensaje y anexa su resultado. Ejemplo de estas reglas pueden ser:
 
-- Analisis sentimental.
-- Búsqueda de expresiones agraviantes.
-- Medir el ratio de conversación de cada speaker, por ejemplo 70% vendedor, 30% cliente.
-- Validar ciertas expresiones que deben ser mencionadas por el gestor de acuerdo a la campaña, por ejemplo "crédito sujeto a aprovación crediticia en la sucursal".
-- Etc.
+* Analisis sentimental.
+* Búsqueda de expresiones agraviantes.
+* Medir el ratio de conversación de cada speaker, por ejemplo 70% vendedor, 30% cliente.
+* Validar ciertas expresiones que deben ser mencionadas por el gestor de acuerdo a la campaña, por ejemplo "crédito sujeto a aprovación crediticia en la sucursal".
+* Etcétera
 
 Dado que estas reglas se ejecutan, dependiendo del estado de la cola, en near-realtime, algunas de estas reglas podrían producir alertas tempranas de acuerdo a la severidad de su análisis.
 
