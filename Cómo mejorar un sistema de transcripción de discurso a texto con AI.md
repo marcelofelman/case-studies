@@ -102,7 +102,32 @@ Finalmente el archivo de audio dual-channel, la transcripción sincronizada y lo
 
 ### Language Model
 
-Completar
+Un `language model` en términos prácticos es un conjunto de enunciados. Estos enunciados, deben ser aquellos que aparecen frecuentemente en mis discursos y que son importantes de identificar.
+
+Proveyendo decenas, cientos o tal vez miles de ejemplos de enunciados, le estoy enseñando a mi procesador de audio que esa palabra es importante para detectar, generando una suerte de `sesgo` hacia esa identificación.
+
+Supongamos el siguiente enunciado:
+`¿Cuál es tu número de cédula?`
+
+Un ejemplo de `language model` puede ser el siguiente cuerpo de enunciados:
+
+* cual
+* cual es tu numero
+* cedula
+* cual es tu numero de cedula
+* cedula
+
+En este caso, la palabra cédula es importante de identificar. Al mismo tiempo, existen muchas palabras que suenan parecidas a cédula, tales como:
+
+* Célula
+* Crédula
+* Médula
+
+Lo que estoy haciendo al proveer de un `language model`, es asegurarme de "desempatar" esos casos confusos en las palabras que son relevantes en mi dominio, en este caso `cédula`. Además, puedo incorporar la palabra cédula muchas veces, de forma tal de darle más peso que a otras palabras.
+
+El servicio de Custom Speech actualmente permite subir datos de entranamiento para `language model` de hasta 500 MB (!) de enunciados en texto plano.
+
+Para aprender cómo crear un `language model`, [sigue estos pasos](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-speech-service/customspeech-how-to-topics/cognitive-services-custom-speech-create-language-model) (Spoiler: es simple).
 
 ### Acoustic Model
 
@@ -119,7 +144,7 @@ Completar
 ## Miembros del equipo
 
 * [Marcelo Felman](https://github.com/marcelofelman/)
-* Diego Gregoraz
+* [Diego Gregoraz](https://github.com/dgregoraz/)
 * [Vianey Juarez](https://github.com/vianeysitaa)
 
 ## Referencias o Recursos
