@@ -1,4 +1,4 @@
-# Cómo mejorar un sisema de transcripción de audio a texto con IA
+# Cómo mejorar un sistema de transcripción de audio a texto con IA
 
 ## Introducción
 
@@ -48,7 +48,7 @@ Habitualmente cierta información demográfica del cliente es validada en la con
 
 La central telefónica provee dos archivos con la conversación, uno por cada canal, *inbound* y *outbound*. Los archivos se generan en formato .mp3, Mono, a 11025 Hz, 16 bits, PCM.
 
-### Message Broker
+### Message Broker (agente de mensajería)
 
 Una de las soluciones para este escenario es dejar que las aplicaciones envíen y reciban mensajes a través de una cola unidireccional. En un principio, casi todas las acciones son ejecutadas sobre todos los mensajes. Si este escenario cambia, eventualmente podría implementarse un *broker* con un mecanismo de subscripción basado en la metadata provista por el CRM para diferenciar los diferentes procesamientos que se ejecutan sobre los mensajes en el *pipeline*.
 
@@ -56,7 +56,7 @@ Dado que el análisis de los audios es una operación asincrónica, el *Message 
 
 Todos los sistemas que interactúan con la cola son *receivers* y *senders*, excepto la central telefónica que es sólo sender. Como receivers los sistemas están aguardando un mensaje, lo leen, realizan alguna operación y, como sender, lo devuelven a la cola para que continue su flujo. A continuación se describen cada uno de los sistemas o componentes que intervienen en el proceso de transcripción.
 
-### Pre-processing
+### Pre-processing (pre-processamiento)
 
 La primera acción a realizar en los audios es la adaptación y mejoramiento para aumentar la precisión de su transcripción.  Este pre-procesamiento implica:
 
@@ -74,7 +74,7 @@ La separación de canales, de forma gráfica, puede verse en la siguiente imagen
 
 Tal como se puede apreciar, cada uno de los oradores *mayormente* habla mientras el otro está en silencio. De esta forma, reducimos completamente el problema de solapamiento. La complejidad está luego en re-sincronizar los audios.
 
-### Transcription
+### Transcripción
 
 Esta aplicación fragmenta los audios e invoca al servicio `CRIS` a través del endpoint desplegado con el *Custom Model* preparado para este propósito.
 
@@ -86,7 +86,7 @@ Esta operación añade a cada audio el texto relacionado de su transcripción en
 
 El propósito de la sincronización es convertir las transcripciones de ambos audios en una única conversación. La metadata de ambos mensajes son fusionados y los textos identificados son puestos en forma de diálogo.
 
-### Merge & Store
+### Merge & Store (unir y almacenar)
 
 Por razones de auditoría los audios deben conservarse en dual-channel por lo que es necesario volver a integrarlos y convertirlos a formato mp3, ahora en stereo.
 
@@ -112,7 +112,7 @@ Partiremos del modelo base `es-ES` para adaptarlo a los modismos, tonos y acento
 
 Un `language model` en términos prácticos es un conjunto de enunciados. Estos enunciados, deben ser aquellos que aparecen frecuentemente en mis discursos y que son importantes de identificar.
 
-Proveyendo decenas, cientos o tal vez miles de ejemplos de enunciados, le estoy enseñando a mi procesador de audio que esa palabra es importante para detectar, generando una suerte de `sesgo` hacia esa identificación.
+Proveyendo decenas, cientos o tal vez miles de ejemplos de enunciados, le estoy enseñando a mi procesador de audio que esa palabra es importante para detectar, generando una suerte de *sesgo* hacia esa identificación.
 
 Supongamos el siguiente enunciado:
 `¿Cuál es tu número de cédula?`
@@ -150,7 +150,7 @@ El audio `001.wav` contiene una grabación de alguien diciendo `Buen día, ¿cu�
 
 Su transcripción deberá decir `buen día cual es tu numero de cedula` (recordemos: está normalizado).
 
-Al momento de crear esta guía, los modelos acústicos no están disponibles en `CRIS` para español. Puedes ver [cómo funcionan en inglés](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-speech-service/customspeech-how-to-topics/cognitive-services-custom-speech-create-acoustic-model).
+> Al momento de crear esta guía, los modelos acústicos no están disponibles en `CRIS` para español. Puedes ver [cómo funcionan en inglés](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-speech-service/customspeech-how-to-topics/cognitive-services-custom-speech-create-acoustic-model).
 
 ### Publicar y probar el modelo
 
@@ -162,7 +162,11 @@ Los resultados obtenidos fueron significativamente superiores a los de nuestras 
 
 Más precisamente, encontramos distintos niveles de error según el escenario:
 
-![Matriz de escenarios](https://github.com/marcelofelman/case-studies/blob/master/images/2-confusion-channel-gender.png?raw=true)
+| Canal     | Femenino  | Masculino | Total     |
+| --------- | --------- | --------- | --------- |
+| Inbound   | 84%       | 71%       | 80%       |
+| Outbound  | 76%       | 64%       | 70%       |
+| Total     | 81%       | 67%       | 76%       |
 
 Tal como se puede apreciar, los `Inbound` (llamadas entrantes) performan mejor que los `Outbound`. Esto *creemos* que tiene sentido desde la lógica: cuando una persona realiza una llamada, es probable que se prepare para la misma ubicándose en un lugar con poco ruido. En cambio, cuando uno recibe una llamada puede encontrarse en una situación con mucho ruido de fondo, como por ejemplo, la calle.
 
