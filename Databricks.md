@@ -1,4 +1,6 @@
-# A quick guide to get started with Databricks
+# Helpful stuff for Databricks on Azure
+
+Pointers & resources to navigate Databricks on Azure.
 
 ## Databricks
 
@@ -35,3 +37,12 @@ Databricks has a main REST API, as well as a couple of official and unofficial A
 - [Databricks Java Client (not official)](https://github.com/level11data/databricks-client-java)
 - [Azure Databricks Python client (not official)](https://pypi.org/project/azure-databricks-api/)
 - [Azure Databricks C# client (official)](https://github.com/Azure/azure-databricks-client)
+
+### Java on Azure
+
+General stuff on working with Java for Azure.
+
+#### Recommended readings
+
+- [Azure SDKs for Java](https://github.com/Azure/azure-sdk-for-java)
+- [Azure Management Libraries for Java](https://github.com/Azure/azure-libraries-for-java)
