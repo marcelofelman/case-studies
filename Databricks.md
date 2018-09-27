@@ -25,6 +25,8 @@ Azure Databricks is an Apache Spark-based analytics platform optimized for the M
 
 - [Azure Databricks Documentation (Microsoft)](https://docs.microsoft.com/en-us/azure/azure-databricks/)
 - [Azure Databricks Documentation (Databricks)](https://databricks.com/product/azure)
+- [Azure Databricks – Delta in preview, 9 regions added, and other exciting announcements
+](https://azure.microsoft.com/en-us/blog/azure-databricks-delta-in-preview-9-regions-added-and-other-exciting-announcements/)
 
 ### Managing Databricks programmatically
 
@@ -46,3 +48,4 @@ General stuff on working with Java for Azure.
 
 - [Azure SDKs for Java](https://github.com/Azure/azure-sdk-for-java)
 - [Azure Management Libraries for Java](https://github.com/Azure/azure-libraries-for-java)
+- [Announcement: Microsoft and Azul Systems bring free Java LTS support to Azure](https://azure.microsoft.com/en-us/blog/microsoft-and-azul-systems-bring-free-java-lts-support-to-azure/preview/)
