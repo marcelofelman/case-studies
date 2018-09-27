@@ -25,8 +25,7 @@ Azure Databricks is an Apache Spark-based analytics platform optimized for the M
 
 - [Azure Databricks Documentation (Microsoft)](https://docs.microsoft.com/en-us/azure/azure-databricks/)
 - [Azure Databricks Documentation (Databricks)](https://databricks.com/product/azure)
-- [Azure Databricks – Delta in preview, 9 regions added, and other exciting announcements
-](https://azure.microsoft.com/en-us/blog/azure-databricks-delta-in-preview-9-regions-added-and-other-exciting-announcements/)
+- [Azure Databricks – Delta in preview, 9 regions added, and other exciting announcements](https://azure.microsoft.com/en-us/blog/azure-databricks-delta-in-preview-9-regions-added-and-other-exciting-announcements/)
 
 ### Managing Databricks programmatically
 
