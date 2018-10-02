@@ -48,4 +48,4 @@ General stuff on working with Java for Azure.
 - [Azure SDKs for Java](https://github.com/Azure/azure-sdk-for-java)
 - [Azure Management Libraries for Java](https://github.com/Azure/azure-libraries-for-java)
 - [Announcement: Microsoft and Azul Systems bring free Java LTS support to Azure](https://azure.microsoft.com/en-us/blog/microsoft-and-azul-systems-bring-free-java-lts-support-to-azure/preview/)
-- http://www.jesse-anderson.com/2016/04/unit-testing-spark-with-java/
+- [Unit Testing Spark with Java](http://www.jesse-anderson.com/2016/04/unit-testing-spark-with-java/)
